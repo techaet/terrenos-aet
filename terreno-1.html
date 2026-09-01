@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terreno à Venda | Lagoa de Ibiraquera - Santa Catarina</title>
+<style>
+  :root {
+    --azul-escuro: #1b2a4a;
+    --azul-medio: #2c3e66;
+    --cinza-escuro: #3a3a3a;
+    --cinza-medio: #6b6b6b;
+    --cinza-claro: #f4f4f4;
+    --cinza-borda: #e0e0e0;
+    --branco: #ffffff;
+    --verde-whats: #25d366;
+    --verde-whats-hover: #1da851;
+    --sombra: 0 4px 16px rgba(0,0,0,0.08);
+    --sombra-forte: 0 8px 30px rgba(0,0,0,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    color: var(--cinza-escuro);
+    background: var(--cinza-claro);
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Georgia', serif;
+    color: var(--azul-escuro);
+    letter-spacing: 0.3px;
+  }
+
+  a { text-decoration: none; color: inherit; }
+
+  img { max-width: 100%; display: block; }
+
+  .container {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* Navegação (Header e Rodapé) */
+  .nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .nav-home {
+    font-family: 'Helvetica', Arial, sans-serif;
+    font-size: 0.95rem;
+  }
+  .nav-home a {
+    color: #c9d4ea;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background 0.2s ease;
+  }
+  .nav-home a:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  .nav-terrenos {
+    display: flex;
+    gap: 16px;
+    font-family: 'Helvetica', Arial, sans-serif;
+    font-size: 0.9rem;
+  }
+  .nav-terrenos a {
+    color: #d6deec;
+    padding: 6px 10px;
+    border-radius: 3px;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .nav-terrenos a:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: var(--branco);
+  }
+  .nav-whats {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .nav-whats a {
+    background: var(--verde-whats);
+    color: var(--branco);
+    padding: 8px 14px;
+    border-radius: 4px;
+    font-family: 'Helvetica', Arial, sans-serif;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: background 0.2s ease;
+  }
+  .nav-whats a:hover {
+    background: var(--verde-whats-hover);
+  }
+
+  /* Faixa de título do anúncio */
+  .titulo-anuncio {
+    background: var(--branco);
+    padding: 36px 0 24px;
+    border-bottom: 1px solid var(--cinza-borda);
+  }
+  .titulo-anuncio h1 {
+    font-size: 2.1rem;
+    margin-bottom: 8px;
+  }
+  .titulo-anuncio .subtitulo {
+    font-family: 'Helvetica', Arial, sans-serif;
+    color: var(--cinza-medio);
+    font-size: 1rem;
+  }
+  .titulo-anuncio .preco {
+    margin-top: 14px;
+    font-size: 1.6rem;
+    color: var(--azul-escuro);
+    font-weight: bold;
+  }
+
+  /* Destaque principal */
+  .destaque-principal {
+    background: linear-gradient(135deg, #f0f7ff 0%, #e8f1ff 100%);
+    border-left: 4px solid var(--azul-escuro);
+    border-radius: 6px;
+    padding: 28px;
+    margin-bottom: 40px;
+    box-shadow: var(--sombra);
+  }
+  .destaque-principal h3 {
+    font-size: 1.4rem;
+    margin-bottom: 14px;
+    color: var(--azul-escuro);
+  }
+  .destaque-principal p {
+    font-size: 1.05rem;
+    color: var(--cinza-escuro);
+    line-height: 1.8;
+  }
+
+  /* Layout principal */
+  main.conteudo {
+    padding: 36px 0 60px;
+  }
+  .grid-principal {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+
+  /* Galeria */
+  .galeria {
+    background: var(--branco);
+    border: 1px solid var(--cinza-borda);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: var(--sombra);
+  }
+  .galeria-principal {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background: #e9eef5;
+    overflow: hidden;
+  }
+  .galeria-principal img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+  }
+  .galeria-thumbs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    padding: 12px;
+    background: var(--cinza-claro);
+    border-top: 1px solid var(--cinza-borda);
+  }
+  .galeria-thumbs button {
+    border: 2px solid transparent;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+  .galeria-thumbs button img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+  }
+  .galeria-thumbs button:hover { transform: scale(1.03); }
+  .galeria-thumbs button.ativo { border-color: var(--azul-escuro); }
+
+  /* Coluna lateral */
+  .coluna-lateral {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .card {
+    background: var(--branco);
+    border: 1px solid var(--cinza-borda);
+    border-radius: 6px;
+    padding: 24px;
+    box-shadow: var(--sombra);
+  }
+  .card h2 {
+    font-size: 1.25rem;
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--azul-escuro);
+  }
+
+  /* Informações técnicas */
+  .info-tecnica {
+    list-style: none;
+    font-family: 'Helvetica', Arial, sans-serif;
+  }
+  .info-tecnica li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--cinza-borda);
+    font-size: 0.95rem;
+  }
+  .info-tecnica li:last-child { border-bottom: none; }
+  .info-tecnica .rotulo { color: var(--cinza-medio); }
+  .info-tecnica .valor { color: var(--cinza-escuro); font-weight: bold; }
+
+  /* Botões de ação */
+  .acoes {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .btn {
+    display: block;
+    text-align: center;
+    padding: 14px 18px;
+    border-radius: 4px;
+    font-family: 'Helvetica', Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s ease, transform 0.1s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-whats {
+    background: var(--verde-whats);
+    color: var(--branco);
+  }
+  .btn-whats:hover { background: var(--verde-whats-hover); }
+
+  /* Descrição */
+  .descricao {
+    margin-top: 40px;
+    background: var(--branco);
+    border: 1px solid var(--cinza-borda);
+    border-radius: 6px;
+    padding: 32px;
+    box-shadow: var(--sombra);
+  }
+  .descricao h2 {
+    font-size: 1.4rem;
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--azul-escuro);
+  }
+  .descricao p {
+    margin-bottom: 14px;
+    font-size: 1.02rem;
+    color: var(--cinza-escuro);
+  }
+  .descricao ul {
+    margin: 12px 0 14px 22px;
+  }
+  .descricao ul li { margin-bottom: 6px; }
+
+  /* Localização / Mapa */
+  .localizacao {
+    margin-top: 40px;
+    background: var(--branco);
+    border: 1px solid var(--cinza-borda);
+    border-radius: 6px;
+    padding: 32px;
+    box-shadow: var(--sombra);
+  }
+  .localizacao h2 {
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+  }
+  .localizacao .endereco {
+    font-family: 'Helvetica', Arial, sans-serif;
+    color: var(--cinza-medio);
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+  }
+  .mapa-wrapper {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: 1px solid var(--cinza-borda);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .mapa-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  /* Rodapé */
+  footer.site-footer {
+    background: var(--azul-escuro);
+    color: #d6deec;
+    padding: 28px 0;
+    font-family: 'Helvetica', Arial, sans-serif;
+    font-size: 0.9rem;
+  }
+  footer.site-footer a { color: #c9d4ea; }
+  footer.site-footer .nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  footer.site-footer .footer-info {
+    text-align: center;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Google Translate */
+  #google_translate_element {
+    margin-top: 12px;
+  }
+  .goog-te-gadget {
+    font-family: 'Helvetica', Arial, sans-serif !important;
+  }
+  .goog-te-gadget-simple {
+    background: transparent !important;
+    border: none !important;
+  }
+  .goog-te-gadget-simple .goog-te-combo {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: #d6deec !important;
+    padding: 6px 8px !important;
+    border-radius: 4px !important;
+    font-size: 0.85rem !important;
+  }
+  .goog-te-gadget-simple .goog-te-combo:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+  }
+
+  /* Responsividade */
+  @media (max-width: 900px) {
+    .grid-principal { grid-template-columns: 1fr; }
+    .titulo-anuncio h1 { font-size: 1.7rem; }
+    .galeria-thumbs { grid-template-columns: repeat(4, 1fr); }
+    header.site-header .container { flex-direction: column; gap: 12px; }
+    .nav-terrenos { flex-wrap: wrap; justify-content: center; }
+  }
+  @media (max-width: 560px) {
+    .container { padding: 0 16px; }
+    .titulo-anuncio h1 { font-size: 1.5rem; }
+    .titulo-anuncio .preco { font-size: 1.3rem; }
+    .galeria-thumbs { grid-template-columns: repeat(3, 1fr); }
+    .descricao, .localizacao { padding: 22px; }
+    .nav-terrenos { font-size: 0.8rem; }
+  }
+</style>
+</head>
+<body>
+
+
+
+  <section class="titulo-anuncio">
+    <div class="container">
+      <h1>Terreno à Venda &mdash; Lagoa de Ibiraquera</h1>
+      <p class="subtitulo">Araçatuba, Imbituba, SC &middot; À beira da Lagoa &middot; Documentação 100% regular</p>
+      <p class="preco">R$ 3.300.000,00</p>
+    </div>
+  </section>
+
+  <main class="conteudo">
+    <div class="container">
+
+      <!-- Destaque Principal -->
+      <section class="destaque-principal" aria-label="Destaque da propriedade">
+        <h3>Viva o Paraíso à Beira da Lagoa</h3>
+        <p>
+          Imagine você e seus amigos morando numa propriedade paradisíaca, à beira da Lagoa de Ibiraquera e cercado por praias maravilhosas e pela Surfland. 
+          Com viabilidade para construir aproximadamente <strong>1.800 m²</strong>, você tem total liberdade para criar o empreendimento dos seus sonhos. 
+          Localizado em uma das regiões mais procuradas do litoral catarinense, este terreno representa uma oportunidade única de investimento com potencial de valorização excepcional.
+        </p>
+      </section>
+
+      <div class="grid-principal">
+
+        <!-- Galeria de fotos -->
+        <section class="galeria" aria-label="Galeria de fotos do terreno">
+          <div class="galeria-principal">
+            <img id="imagem-principal" src="terreno-1-foto-7.jpg" alt="Foto principal do terreno">
+          </div>
+          <div class="galeria-thumbs" id="thumbs">
+            <button type="button" class="ativo" data-img="terreno-1-foto-1.jpg" aria-label="Foto 1">
+              <img src="terreno-1-foto-1.jpg" alt="Miniatura 1">
+            </button>
+            <button type="button" data-img="terreno-1-foto-2.jpg" aria-label="Foto 2">
+              <img src="terreno-1-foto-2.jpg" alt="Miniatura 2">
+            </button>
+            <button type="button" data-img="terreno-1-foto-3.jpg" aria-label="Foto 3">
+              <img src="terreno-1-foto-3.jpg" alt="Miniatura 3">
+            </button>
+            <button type="button" data-img="terreno-1-foto-4.jpg" aria-label="Foto 4">
+              <img src="terreno-1-foto-4.jpg" alt="Miniatura 4">
+            </button>
+            <button type="button" data-img="terreno-1-foto-5.jpg" aria-label="Foto 5">
+              <img src="terreno-1-foto-5.jpg" alt="Miniatura 5">
+            </button>
+            <button type="button" data-img="terreno-1-foto-6.jpg" aria-label="Foto 6">
+              <img src="terreno-1-foto-6.jpg" alt="Miniatura 6">
+            </button>
+            <button type="button" data-img="terreno-1-foto-7.jpg" aria-label="Foto 7">
+              <img src="terreno-1-foto-7.jpg" alt="Miniatura 7">
+            </button>
+          </div>
+        </section>
+
+        <!-- Coluna lateral -->
+        <aside class="coluna-lateral">
+
+          <section class="card" aria-label="Informações técnicas">
+            <h2>Informações Técnicas</h2>
+            <ul class="info-tecnica">
+              <li><span class="rotulo">Área total</span><span class="valor">4.330,65 m²</span></li>
+              <li><span class="rotulo">Dimensões Aprox</span><span class="valor">30 x 150 m</span></li>
+              <li><span class="rotulo">Formato</span><span class="valor">Retangular</span></li>
+              <li><span class="rotulo">Platôs</span><span class="valor">3 planos</span></li>
+              <li><span class="rotulo">Zoneamento</span><span class="valor">ZRUP-5</span></li>
+              <li><span class="rotulo">Área Máxima Permitida</span><span class="valor">~1.800 m²</span></li>
+              <li><span class="rotulo">Coef. Ocupação</span><span class="valor">0,25</span></li>
+              <li><span class="rotulo">Coef. Aproveitamento</span><span class="valor">0,40</span></li>
+              <li><span class="rotulo">Altura máxima</span><span class="valor">9,00 m</span></li>
+              <li><span class="rotulo">Recuo de frente</span><span class="valor">5,00 m</span></li>
+            </ul>
+          </section>
+
+          <section class="card" aria-label="Ações de contato">
+            <h2>Fale Conosco</h2>
+            <div class="acoes">
+              <a class="btn btn-whats" href="https://wa.me/5548991223600?text=Ol%C3%A1%2C%20tenho%20interesse%20no%20terreno%20%C3%A0%20venda%20na%20Lagoa%20de%20Ibiraquera." target="_blank" rel="noopener">Falar no WhatsApp</a>
+            </div>
+          </section>
+
+        </aside>
+
+      </div>
+
+      <!-- Descrição -->
+      <section class="descricao" aria-label="Descrição do terreno">
+        <h2>Descrição do Terreno</h2>
+        <p>
+          Extraordinária oportunidade de investimento no litoral catarinense: um terreno de <strong>4.330,65 m²</strong> à beira da Lagoa de Ibiraquera, em Imbituba, Santa Catarina. 
+          Este imóvel oferece uma combinação rara de beleza natural e potencial de desenvolvimento, localizado próximo a praias famosas como a Praia do Rosa.
+        </p>
+        <p>
+          O terreno está dividido em <strong>3 platôs planos</strong>, facilitando a implementação de diversos projetos. O zoneamento ZRUP-5 permite múltiplas construções, 
+          desde residências unifamiliares e multifamiliares até hotéis, comércios e clubes, abrindo um leque de possibilidades para sua visão e criatividade.
+        </p>
+        <p>
+          A documentação está <strong>100% regular</strong>, com Escritura Pública e Matrícula incluída, garantindo segurança jurídica total. 
+          Infraestrutura disponível inclui energia elétrica ligada, internet e água mediante solicitação.
+        </p>
+        <p>
+          <strong>Usos compatíveis:</strong>
+        </p>
+        <ul>
+          <li>Habitação individual e coletiva</li>
+          <li>Hotelaria e empreendimentos turísticos</li>
+          <li>Comércio abastecimento, varejo, escritório e consultório</li>
+          <li>Clubes, jogos, esportes e assistência geral</li>
+          <li>Condomínio de casas de luxo</li>
+          <li>Empreendimentos sustentáveis</li>
+        </ul>
+      </section>
+
+      <!-- Localização -->
+      <section class="localizacao" aria-label="Localização e mapa">
+        <h2>Localização</h2>
+        <p class="endereco">Rua Atlântico Sul &mdash; Imbituba, Santa Catarina &mdash; Brasil</p>
+        <div class="mapa-wrapper">
+          <iframe
+            src="https://www.google.com/maps?q=-28.131667,-48.682361&output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Mapa da localização do terreno">
+          </iframe>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="nav-container">
+        <div class="nav-home">
+          <a href="index.html">← Voltar para Home</a>
+        </div>
+        <div class="nav-terrenos">
+          <a href="terreno-1.html">Beira de Lagoa</a>
+          <a href="terreno-2.html">Comercial na Rua Esperança</a>
+          <a href="terreno-3.html">Centrinho do Rosa</a>
+          <a href="terreno-4.html">Sítio em Imaruí</a>
+        </div>
+        <div class="nav-whats">
+          <a href="https://wa.me/5548991223600?text=Ol%C3%A1%2C%20tenho%20interesse%20em%20um%20dos%20terrenos." target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+      </div>
+      <div class="footer-info">
+        <p style="opacity:0.8;">Os valores e condições podem sofrer alterações sem aviso prévio.</p>
+        <div id="google_translate_element" style="margin-top: 12px;"></div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Galeria: trocar imagem principal ao clicar nas miniaturas
+    (function () {
+      var thumbs = document.querySelectorAll('#thumbs button');
+      var imagemPrincipal = document.getElementById('imagem-principal');
+
+      thumbs.forEach(function (botao) {
+        botao.addEventListener('click', function () {
+          var novaImagem = botao.getAttribute('data-img');
+          imagemPrincipal.style.opacity = '0';
+          setTimeout(function () {
+            imagemPrincipal.src = novaImagem;
+            imagemPrincipal.style.opacity = '1';
+          }, 150);
+          thumbs.forEach(function (b) { b.classList.remove('ativo'); });
+          botao.classList.add('ativo');
+        });
+      });
+    })();
+    
+    // Google Translate
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({pageLanguage: 'pt', includedLanguages: 'pt,en,ru,es,fr,de,it,ja,zh-CN'}, 'google_translate_element');
+    }
+  </script>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+</html>

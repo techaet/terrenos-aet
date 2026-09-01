@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terrenos à Venda | AET Solidez - Santa Catarina</title>
+<meta name="description" content="Terrenos à venda em Santa Catarina. Lagoa de Ibiraquera, Rua Esperança, Praia do Rosa e Imaruí. Investimento imobiliário com excelente localização.">
+<style>
+  :root {
+    --azul-escuro: #1b2a4a;
+    --azul-medio: #2c3e66;
+    --cinza-escuro: #3a3a3a;
+    --cinza-medio: #6b6b6b;
+    --cinza-claro: #f4f4f4;
+    --cinza-borda: #e0e0e0;
+    --branco: #ffffff;
+    --verde-whats: #25d366;
+    --verde-whats-hover: #1da851;
+    --sombra: 0 4px 16px rgba(0,0,0,0.08);
+    --sombra-forte: 0 8px 30px rgba(0,0,0,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    color: var(--cinza-escuro);
+    background: var(--cinza-claro);
+    line-height: 1.6;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Georgia', serif;
+    color: var(--azul-escuro);
+    letter-spacing: 0.3px;
+  }
+
+  a { text-decoration: none; color: inherit; }
+
+  img { max-width: 100%; display: block; }
+
+  .container {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* Header */
+  header {
+    background: var(--azul-escuro);
+    color: var(--branco);
+    padding: 48px 0;
+    text-align: center;
+    border-bottom: 3px solid var(--azul-medio);
+  }
+
+  header h1 {
+    color: var(--branco);
+    font-size: 2.8rem;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+  }
+
+  header p {
+    font-size: 1.1rem;
+    opacity: 0.95;
+    margin-bottom: 24px;
+  }
+
+  .btn-whats-header {
+    display: inline-block;
+    background: var(--verde-whats);
+    color: var(--branco);
+    padding: 12px 28px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-family: 'Helvetica', Arial, sans-serif;
+    transition: all 0.2s ease;
+  }
+
+  .btn-whats-header:hover {
+    background: var(--verde-whats-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+  }
+
+  /* Seção de introdução */
+  .intro {
+    background: var(--branco);
+    padding: 40px 0;
+    text-align: center;
+    border-bottom: 1px solid var(--cinza-borda);
+  }
+
+  .intro h2 {
+    font-size: 1.8rem;
+    margin-bottom: 16px;
+  }
+
+  .intro p {
+    font-size: 1.05rem;
+    color: var(--cinza-medio);
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* Grid de terrenos */
+  .terrenos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 32px;
+    margin: 60px 0;
+  }
+
+  /* Card do terreno */
+  .terreno-card {
+    background: var(--branco);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--sombra);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .terreno-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--sombra-forte);
+  }
+
+  .terreno-card-imagem {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .terreno-card-conteudo {
+    padding: 24px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .terreno-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+  }
+
+  .terreno-card-local {
+    font-size: 0.9rem;
+    color: var(--cinza-medio);
+    margin-bottom: 12px;
+  }
+
+  .terreno-card-info {
+    display: flex;
+    gap: 16px;
+    margin: 16px 0;
+    font-size: 0.9rem;
+  }
+
+  .terreno-card-info-item {
+    flex: 1;
+  }
+
+  .terreno-card-info-label {
+    font-weight: bold;
+    color: var(--azul-escuro);
+    display: block;
+    font-size: 0.8rem;
+    margin-bottom: 4px;
+  }
+
+  .terreno-card-info-valor {
+    color: var(--cinza-medio);
+  }
+
+  .terreno-card-descricao {
+    font-size: 0.95rem;
+    color: var(--cinza-medio);
+    margin: 16px 0;
+    flex-grow: 1;
+  }
+
+  .terreno-card-preco {
+    font-size: 1.4rem;
+    color: var(--azul-escuro);
+    font-weight: bold;
+    margin: 16px 0;
+  }
+
+  .btn-detalhes {
+    display: inline-block;
+    background: var(--azul-escuro);
+    color: var(--branco);
+    padding: 12px 20px;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: bold;
+    font-family: 'Helvetica', Arial, sans-serif;
+    transition: all 0.2s ease;
+    margin-top: auto;
+  }
+
+  .btn-detalhes:hover {
+    background: var(--azul-medio);
+    transform: translateY(-2px);
+  }
+
+  /* Seção de contato */
+  .contato-section {
+    background: linear-gradient(135deg, #2c3e66 0%, #1b2a4a 100%);
+    color: var(--branco);
+    padding: 60px 0;
+    text-align: center;
+    margin: 60px 0 0 0;
+  }
+
+  .contato-section h2 {
+    color: var(--branco);
+    font-size: 2rem;
+    margin-bottom: 24px;
+  }
+
+  .contato-section p {
+    font-size: 1.1rem;
+    margin-bottom: 32px;
+    opacity: 0.95;
+  }
+
+  .btn-whats-contato {
+    display: inline-block;
+    background: var(--verde-whats);
+    color: var(--branco);
+    padding: 16px 40px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-family: 'Helvetica', Arial, sans-serif;
+    font-size: 1.05rem;
+    transition: all 0.2s ease;
+  }
+
+  .btn-whats-contato:hover {
+    background: var(--verde-whats-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
+  }
+
+  /* Rodapé */
+  footer {
+    background: var(--azul-escuro);
+    color: #d6deec;
+    padding: 32px 0;
+    text-align: center;
+    font-family: 'Helvetica', Arial, sans-serif;
+    font-size: 0.9rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  footer p {
+    margin-bottom: 16px;
+  }
+
+  footer a {
+    color: #c9d4ea;
+    transition: color 0.2s ease;
+  }
+
+  footer a:hover {
+    color: var(--branco);
+  }
+
+  /* Google Translate */
+  #google_translate_element {
+    margin-top: 12px;
+  }
+
+  .goog-te-gadget {
+    font-family: 'Helvetica', Arial, sans-serif !important;
+  }
+
+  .goog-te-gadget-simple {
+    background: transparent !important;
+    border: none !important;
+  }
+
+  .goog-te-gadget-simple .goog-te-combo {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: #d6deec !important;
+    padding: 6px 8px !important;
+    border-radius: 4px !important;
+    font-size: 0.85rem !important;
+  }
+
+  .goog-te-gadget-simple .goog-te-combo:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+  }
+
+  /* Responsividade */
+  @media (max-width: 768px) {
+    header h1 { font-size: 2rem; }
+    .terrenos-grid { grid-template-columns: 1fr; gap: 24px; }
+    .terreno-card-info { flex-direction: column; gap: 8px; }
+    .contato-section h2 { font-size: 1.6rem; }
+  }
+</style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 24px;">
+      </div>
+      <h1>Excelentes Terrenos à Venda</h1>
+            <h1>Todos com Escritura Pública</h1>
+      <p>Oportunidades de investimento imobiliário no Sul do Estado de Santa Catarina</p>
+      <a class="btn-whats-header" href="https://wa.me/5548991223600?text=Olá%2C%20tenho%20interesse%20em%20conhecer%20mais%20sobre%20os%20terrenos." target="_blank" rel="noopener">Fale Conosco no WhatsApp</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+
+      <section class="terrenos-grid">
+
+        <!-- Terreno 1 -->
+        <article class="terreno-card">
+          <img src="terreno-1-foto-7.jpg" alt="Terreno Lagoa de Ibiraquera" class="terreno-card-imagem">
+          <div class="terreno-card-conteudo">
+            <h3>Terreno Beira de Lagoa</h3>
+            <p class="terreno-card-local">Araçatuba, Imbituba, SC</p>
+            
+            <div class="terreno-card-info">
+              <div class="terreno-card-info-item">
+                <span class="terreno-card-info-label">Área</span>
+                <span class="terreno-card-info-valor">4.330 m²</span>
+              </div>
+              <div class="terreno-card-info-item">
+                <span class="terreno-card-info-label">Medidas</span>
+                <span class="terreno-card-info-valor">30 x 150 m</span>
+              </div>
+            </div>
+
+            <p class="terreno-card-descricao">Terreno à beira da Lagoa de Ibiraquera com vista para as praias maravilhosas e próximo à Surfland. Localização paradisíaca para viver ou investir.</p>
+
+            <p class="terreno-card-preco">R$ 3.300.000,00</p>
+
+            <a href="terreno-1.html" class="btn-detalhes">Ver Detalhes</a>
+          </div>
+        </article>
+
+        <!-- Terreno 2 -->
+        <article class="terreno-card">
+          <img src="terreno-2-foto-4.jpg" alt="Terreno Rua Esperança" class="terreno-card-imagem">
+          <div class="terreno-card-conteudo">
+            <h3>Terreno Comercial no acesso principal do Rosa</h3>
+            <p class="terreno-card-local">Araçatuba, Imbituba, SC</p>
+            
+            <div class="terreno-card-info">
+              <div class="terreno-card-info-item">
+                <span class="terreno-card-info-label">Área</span>
+                <span class="terreno-card-info-valor">13.049 m²</span>
+              </div>
+              <div class="terreno-card-info-item">
+                <span class="terreno-card-info-label">Medidas Aprox.</span>
+                <span class="terreno-card-info-valor">180 (Testada) x 70m</span>
+              </div>
+            </div>
+
+            <p class="terreno-card-descricao">Terreno Comercial com 180 metros de frente para avenida principal. Apenas 2-3km da BR-101, acesso direto para Praia do Rosa e Ibiraquera. VGV ~R$ 60 milhões.</p>
+
+            <p class="terreno-card-preco">Valor Sob Consulta</p>
+
+            <a href="terreno-2.html" class="btn-detalhes">Ver Detalhes</a>
+          </div>
+        </article>
+
+        <!-- Terreno 3 -->
+        <article class="terreno-card">
+          <img src="terreno-3-foto-2.jpg" alt="Terreno Praia do Rosa" class="terreno-card-imagem">
+          <div class="terreno-card-conteudo">
+            <h3>Esse lote vai colocar 18 mil reais por mês no seu bolso</h3>
+            <p class="terreno-card-local">5 min do Centrinho do Rosa, Imbituba, SC</p>
+            
+            <div class="terreno-card-info">
+              <div class="terreno-card-info-item">
+                <span class="terreno-card-info-label">Área</span>
+                <span class="terreno-card-info-valor">882 m²</span>
+              </div>
+              <div class="terreno-card-info-item">
+                <span class="terreno-card-info-label">Potencial</span>
+                <span class="terreno-card-info-valor">8-10 lofts</span>
+              </div>
+            </div>
+
+            <p class="terreno-card-descricao">Perto do centrinho da Praia do Rosa. Excelente retorno em locação anual. Faltam imóveis para locação anual na região. Maximização de ROI.</p>
+
+            <p class="terreno-card-preco">R$ 690.000,00</p>
+
+            <a href="terreno-3.html" class="btn-detalhes">Ver Detalhes</a>
+          </div>
+        </article>
+
+        <!-- Terreno 4 -->
+        <article class="terreno-card">
+          <img src="terreno-4-foto-4.jpg" alt="Terreno Imaruí" class="terreno-card-imagem">
+          <div class="terreno-card-conteudo">
+            <h3>Sítio em Imaruí/SC</h3>
+            <p class="terreno-card-local">Imaruí, SC</p>
+            
+            <div class="terreno-card-info">
+              <div class="terreno-card-info-item">
+                <span class="terreno-card-info-label">Área</span>
+                <span class="terreno-card-info-valor">22.845 m²</span>
+              </div>
+              <div class="terreno-card-info-item">
+                <span class="terreno-card-info-label">Vista</span>
+                <span class="terreno-card-info-valor">Mar e Lagoa</span>
+              </div>
+            </div>
+
+            <p class="terreno-card-descricao">Vista cinematográfica para o mar e lagoa. Condomínio rural com 2 nascentes de água. 15km da Ferjú, acesso por asfalto. Ideal para pousada rural ou sítio.</p>
+
+            <p class="terreno-card-preco">R$ 690.000,00</p>
+
+            <a href="terreno-4.html" class="btn-detalhes">Ver Detalhes</a>
+          </div>
+        </article>
+
+      </section>
+
+    </div>
+  </main>
+
+  <section class="contato-section">
+    <div class="container">
+      <h2>Interessado em Algum Terreno?</h2>
+      <p>Entre em contato conosco para mais informações, visitas e negociações.</p>
+      <a class="btn-whats-contato" href="https://wa.me/5548991223600?text=Olá%2C%20tenho%20interesse%20em%20um%20dos%20terrenos%20à%20venda." target="_blank" rel="noopener">Conversar no WhatsApp</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 AET Solidez — Terrenos à Venda em Santa Catarina</p>
+      <p>Os valores e condições podem sofrer alterações sem aviso prévio.</p>
+      <div id="google_translate_element"></div>
+    </div>
+  </footer>
+
+  <script>
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({pageLanguage: 'pt', includedLanguages: 'pt,en,ru,es,fr,de,it,ja,zh-CN'}, 'google_translate_element');
+    }
+  </script>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+</html>
