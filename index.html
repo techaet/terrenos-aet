@@ -82,6 +82,45 @@
     padding: 48px 0;
     text-align: center;
     border-bottom: 3px solid var(--azul-medio);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .logo-watermark {
+    position: absolute;
+    top: 50%;
+    right: -100px;
+    width: 560px;
+    height: 560px;
+    transform: translateY(-50%) rotate(-18deg);
+    opacity: 0.16;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .logo-watermark img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  header .container {
+    position: relative;
+    z-index: 1;
+  }
+
+  .logo-header {
+    margin-bottom: 20px;
+  }
+
+  .logo-header img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: var(--branco);
+    padding: 10px;
+    box-shadow: var(--sombra-forte);
+    border: 3px solid rgba(255, 255, 255, 0.15);
   }
 
   header h1 {
@@ -89,6 +128,16 @@
     font-size: 2.8rem;
     margin-bottom: 12px;
     letter-spacing: 1px;
+  }
+
+  header h2 {
+    color: var(--branco);
+    font-size: 1.5rem;
+    font-weight: 400;
+    font-style: italic;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+    opacity: 0.9;
   }
 
   header p {
@@ -331,6 +380,8 @@
   /* Responsividade */
   @media (max-width: 768px) {
     header h1 { font-size: 2rem; }
+    header h2 { font-size: 1.2rem; }
+    .logo-header img { width: 90px; height: 90px; }
     .terrenos-grid { grid-template-columns: 1fr; gap: 24px; }
     .terreno-card-info { flex-direction: column; gap: 8px; }
     .contato-section h2 { font-size: 1.6rem; }
@@ -340,11 +391,15 @@
 <body>
 
   <header>
+    <div class="logo-watermark">
+      <img src="logo-watermark.png" alt="" aria-hidden="true">
+    </div>
     <div class="container">
-      <div style="text-align: center; margin-bottom: 24px;">
+      <div class="logo-header">
+        <img src="logo-header.png" alt="AET Solidez - Administração de Imóveis" width="120" height="120">
       </div>
       <h1>Excelentes Terrenos à Venda</h1>
-            <h1>Todos com Escritura Pública</h1>
+            <h2>Todos com Escritura Pública</h2>
       <p>Oportunidades de investimento imobiliário no Sul do Estado de Santa Catarina</p>
       <a class="btn-whats-header" href="https://wa.me/5548991223600?text=Olá%2C%20tenho%20interesse%20em%20conhecer%20mais%20sobre%20os%20terrenos." target="_blank" rel="noopener">Fale Conosco no WhatsApp</a>
     </div>
