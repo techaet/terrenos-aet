@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://terrenos.aetsolidez.com.br/sitemap.xml
