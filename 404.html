@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Página Não Encontrada | AET Solidez</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="robots" content="noindex, follow">
+<style>
+  :root {
+    --azul-escuro: #1b2a4a;
+    --azul-medio: #2c3e66;
+    --cinza-escuro: #3a3a3a;
+    --cinza-medio: #6b6b6b;
+    --cinza-claro: #f4f4f4;
+    --branco: #ffffff;
+    --verde-whats: #25d366;
+    --verde-whats-hover: #1da851;
+    --sombra-forte: 0 8px 30px rgba(0,0,0,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    color: var(--cinza-escuro);
+    background: var(--cinza-claro);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  a { text-decoration: none; color: inherit; }
+  img { max-width: 100%; display: block; }
+
+  .container {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  header {
+    background: var(--azul-escuro);
+    color: var(--branco);
+    padding: 40px 0;
+    text-align: center;
+    border-bottom: 3px solid var(--azul-medio);
+  }
+
+  .logo-header img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: var(--branco);
+    padding: 10px;
+    box-shadow: var(--sombra-forte);
+    border: 3px solid rgba(255, 255, 255, 0.15);
+    margin: 0 auto 16px;
+  }
+
+  main {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 24px;
+  }
+
+  .erro-codigo {
+    font-size: 6rem;
+    font-weight: bold;
+    color: var(--azul-escuro);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  main h1 {
+    font-size: 1.8rem;
+    color: var(--azul-escuro);
+    margin-bottom: 16px;
+  }
+
+  main p {
+    font-size: 1.05rem;
+    color: var(--cinza-medio);
+    max-width: 480px;
+    margin: 0 auto 32px;
+  }
+
+  .btn-home {
+    display: inline-block;
+    background: var(--azul-escuro);
+    color: var(--branco);
+    padding: 14px 32px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-family: 'Helvetica', Arial, sans-serif;
+    transition: all 0.2s ease;
+    margin-right: 12px;
+    margin-bottom: 12px;
+  }
+
+  .btn-home:hover {
+    background: var(--azul-medio);
+    transform: translateY(-2px);
+  }
+
+  .btn-whats {
+    display: inline-block;
+    background: var(--verde-whats);
+    color: var(--branco);
+    padding: 14px 32px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-family: 'Helvetica', Arial, sans-serif;
+    transition: all 0.2s ease;
+    margin-bottom: 12px;
+  }
+
+  .btn-whats:hover {
+    background: var(--verde-whats-hover);
+    transform: translateY(-2px);
+  }
+
+  footer {
+    background: var(--azul-escuro);
+    color: #d6deec;
+    padding: 24px 0;
+    text-align: center;
+    font-family: 'Helvetica', Arial, sans-serif;
+    font-size: 0.85rem;
+  }
+
+  @media (max-width: 600px) {
+    .erro-codigo { font-size: 4rem; }
+    main h1 { font-size: 1.4rem; }
+  }
+</style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <div class="logo-header">
+        <img src="/logo-header.png" alt="AET Solidez - Administração de Imóveis" width="100" height="100">
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <p class="erro-codigo">404</p>
+      <h1>Página Não Encontrada</h1>
+      <p>O terreno ou a página que você procura não está mais disponível ou o endereço foi digitado errado. Mas temos outras excelentes oportunidades esperando por você.</p>
+      <div>
+        <a href="/" class="btn-home">Voltar para Home</a>
+        <a href="https://wa.me/5548991223600?text=Olá%2C%20tenho%20interesse%20em%20conhecer%20mais%20sobre%20os%20terrenos." target="_blank" rel="noopener" class="btn-whats">Falar no WhatsApp</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 AET Solidez — Terrenos à Venda em Santa Catarina</p>
+    </div>
+  </footer>
+
+</body>
+</html>
