@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A equipe de agentes | AET Solidez</title>
+<meta name="description" content="Conheça a equipe de agentes de IA da AET Solidez: quem pesquisa, escreve, cria, revisa, anuncia e mede, e qual modelo cada um usa.">
+<meta property="og:title" content="A equipe de agentes da AET Solidez"><meta property="og:image" content="https://aetsolidez.com.br/equipe/sala.webp">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Source+Serif+4:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#221f19;--paper:#eee9dd;--graphite:#17181a;--pewter:#a39a89;--brass:#a6803e;--brass-b:#c79a4f;--hair:rgba(255,255,255,.14)}
+*{box-sizing:border-box}body{margin:0;background:var(--graphite);color:var(--paper);font:17px/1.55 "Source Serif 4",Georgia,serif}
+header{max-width:1180px;margin:0 auto;padding:46px 24px 22px}
+.sob{font:600 12px/1 "Source Serif 4";letter-spacing:.22em;text-transform:uppercase;color:var(--brass-b)}
+h1{font:600 clamp(36px,5vw,62px)/1.02 "Cormorant Garamond",serif;margin:12px 0 12px}h1 i{color:var(--brass-b)}
+.lead{max-width:720px;color:#cfc7b6;margin:0}
+.leg{display:flex;gap:20px;flex-wrap:wrap;margin:18px 0 0;font-size:14px;color:#bdb5a4}.leg i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px}
+.sala{position:relative;max-width:1500px;margin:8px auto 0;border-radius:18px;overflow:visible}
+.sala img{width:100%;display:block;border-radius:18px;box-shadow:0 30px 80px rgba(0,0,0,.55)}
+.ponto{position:absolute;transform:translate(-50%,-50%);width:28px;height:28px;border:0;background:none;padding:0;cursor:pointer;z-index:2}
+.ponto::before{content:"";position:absolute;inset:6px;border-radius:50%;background:var(--c);box-shadow:0 0 0 3px rgba(255,255,255,.92),0 4px 14px rgba(0,0,0,.5)}
+.halo{position:absolute;inset:0;border-radius:50%;background:var(--c);opacity:.45;animation:pulsa 2.4s ease-out infinite}
+@keyframes pulsa{0%{transform:scale(.6);opacity:.55}100%{transform:scale(2.2);opacity:0}}
+.nome{position:absolute;left:50%;top:calc(100% + 4px);transform:translateX(-50%);white-space:nowrap;font:600 12.5px/1 "Source Serif 4";background:rgba(23,24,26,.82);color:#fff;padding:4px 8px;border-radius:99px;border:1px solid var(--hair);pointer-events:none}
+.cartao{position:absolute;width:300px;padding:16px 18px;border-radius:14px;background:rgba(250,247,240,.98);color:var(--ink);text-align:left;box-shadow:0 24px 60px rgba(0,0,0,.45);opacity:0;visibility:hidden;transition:opacity .18s,transform .18s;z-index:5;font-size:14.5px;line-height:1.45}
+.cartao.dir{left:calc(100% + 14px)}.cartao.esq{right:calc(100% + 14px)}.cartao.baixo{top:-10px}.cartao.cima{bottom:-10px}
+.ponto:hover .cartao,.ponto:focus-visible .cartao,.ponto.aberto .cartao{opacity:1;visibility:visible}.ponto:hover,.ponto.aberto{z-index:6}
+.cartao .g{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:600}
+.cartao strong{display:block;font:600 28px/1.05 "Cormorant Garamond",serif;margin:4px 0 0}.cartao em{display:block;color:#6f6a5e;margin-bottom:8px}
+.cartao .faz{display:block;margin-bottom:10px}.cartao .linha{display:block;border-top:1px solid #e4ddcb;padding-top:6px;margin-top:6px;font-size:13.5px}
+.cartao .linha b{color:var(--brass);margin-right:6px}
+main{max-width:1180px;margin:0 auto;padding:40px 24px 70px}
+h2{font:600 34px/1.1 "Cormorant Garamond",serif;margin:0 0 6px}.sub{color:#bdb5a4;margin:0 0 22px}
+.grade{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.ficha{border:1px solid var(--hair);border-top:3px solid var(--c);border-radius:12px;padding:16px;background:rgba(255,255,255,.03)}
+.ficha .g{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--c);font-weight:600}
+.ficha h3{font:600 26px/1.1 "Cormorant Garamond",serif;margin:4px 0 6px}.ficha h3 small{font:italic 15px "Source Serif 4";color:#bdb5a4}
+.ficha p{margin:0 0 8px;font-size:15px;color:#ddd5c5}.ficha .m{font-size:13.5px;color:#bdb5a4}.ficha .m b{color:var(--brass-b)}
+.regra{margin-top:34px;border:1px solid var(--hair);border-radius:14px;padding:18px 20px;color:#cfc7b6}.regra b{color:var(--paper)}
+footer{text-align:center;color:#8d8576;font-size:13px;padding:0 24px 40px}footer a{color:var(--brass-b)}
+@media (max-width:800px){.nome{display:none}.cartao{position:fixed;left:12px!important;right:12px!important;top:auto!important;bottom:12px!important;width:auto}.ponto{width:24px;height:24px}}
+@media (prefers-reduced-motion:reduce){.halo{animation:none}}
+</style></head><body>
+<header><span class="sob">AET Solidez · bastidores</span>
+<h1>A equipe que trabalha <i>de frente para o mar</i></h1>
+<p class="lead">Treze estações num co-work imaginário no Campeche. Doze agentes de inteligência artificial pesquisam, escrevem, criam, revisam, anunciam e medem, e um diretor decide. Passe o mouse (ou toque) em cada um para ver o nome, o que faz e o modelo que usa.</p>
+<div class="leg"><span><i style="background:#3f9a6b"></i>Estúdio de conteúdo</span><span><i style="background:#d08a2e"></i>Anúncios e operação</span><span><i style="background:#4a6fd1"></i>Direção</span></div></header>
+<div class="sala"><img src="sala.webp" alt="Sala de co-work à beira-mar com treze estações de trabalho, uma para cada agente da equipe" width="1536" height="1024">
+<button class="ponto" style="left:5.9%;top:40.0%;--c:#3f9a6b" aria-label="Marina, Pesquisadora">
+<span class="halo"></span><span class="nome">Marina</span><span class="cartao dir baixo" role="tooltip"><span class="g" style="color:#3f9a6b">Estúdio de conteúdo</span>
+<strong>Marina</strong><em>Pesquisadora</em><span class="faz">Levanta datas, eventos de Floripa, buscas em alta e fatos técnicos, sempre com fonte e data. Entrega a matéria-prima da pauta.</span>
+<span class="linha"><b>Modelo</b> Perplexity (Search API) e Firecrawl, em revezamento · Claude Opus organiza</span><span class="linha"><b>Quando</b> todo dia, 7h30</span></span></button><button class="ponto" style="left:16.0%;top:40.0%;--c:#3f9a6b" aria-label="Bento, Estrategista">
+<span class="halo"></span><span class="nome">Bento</span><span class="cartao dir baixo" role="tooltip"><span class="g" style="color:#3f9a6b">Estúdio de conteúdo</span>
+<strong>Bento</strong><em>Estrategista</em><span class="faz">Monta a pauta do dia de cada marca: um tema, três ângulos (stories, reel, carrossel), o que vender e o que não dizer. Usa o que performou na semana.</span>
+<span class="linha"><b>Modelo</b> Claude Opus</span><span class="linha"><b>Quando</b> todo dia, 7h30</span></span></button><button class="ponto" style="left:25.7%;top:40.0%;--c:#3f9a6b" aria-label="Iara, Redatora">
+<span class="halo"></span><span class="nome">Iara</span><span class="cartao dir baixo" role="tooltip"><span class="g" style="color:#3f9a6b">Estúdio de conteúdo</span>
+<strong>Iara</strong><em>Redatora</em><span class="faz">Escreve stories, roteiros de reel, legendas e artigos do blog, na voz de cada marca e na estrutura de 8 blocos.</span>
+<span class="linha"><b>Modelo</b> Claude Opus</span><span class="linha"><b>Quando</b> stories 9h · reels 10h · artigos semanais</span></span></button><button class="ponto" style="left:35.2%;top:40.5%;--c:#3f9a6b" aria-label="Caio, Redator do carrossel">
+<span class="halo"></span><span class="nome">Caio</span><span class="cartao dir baixo" role="tooltip"><span class="g" style="color:#3f9a6b">Estúdio de conteúdo</span>
+<strong>Caio</strong><em>Redator do carrossel</em><span class="faz">Escreve os carrosséis diários dentro do motor automático, a partir da pauta, com palavra-chave e CTA na legenda.</span>
+<span class="linha"><b>Modelo</b> OpenAI gpt-6.1-sol</span><span class="linha"><b>Quando</b> todo dia, 9h</span></span></button><button class="ponto" style="left:5.2%;top:52.7%;--c:#3f9a6b" aria-label="Lia, Diretora de arte">
+<span class="halo"></span><span class="nome">Lia</span><span class="cartao dir baixo" role="tooltip"><span class="g" style="color:#3f9a6b">Estúdio de conteúdo</span>
+<strong>Lia</strong><em>Diretora de arte</em><span class="faz">Propõe o mosaico de 4 estilos, gera cenas inéditas (nunca repete imagem nem estilo) e confere cada arte antes de seguir.</span>
+<span class="linha"><b>Modelo</b> OpenAI gpt-image-2.5-sunburst (imagens) · gpt-5.6-luna (conferência)</span><span class="linha"><b>Quando</b> a cada peça</span></span></button><button class="ponto" style="left:17.9%;top:53.2%;--c:#3f9a6b" aria-label="Theo, Vídeo, voz e trilha">
+<span class="halo"></span><span class="nome">Theo</span><span class="cartao dir baixo" role="tooltip"><span class="g" style="color:#3f9a6b">Estúdio de conteúdo</span>
+<strong>Theo</strong><em>Vídeo, voz e trilha</em><span class="faz">Grava a narração na voz da marca, compõe a música de fundo e monta os reels com legenda palavra a palavra e efeitos; gera cenas em vídeo quando não há filmagem real.</span>
+<span class="linha"><b>Modelo</b> ElevenLabs (eleven_multilingual_v2 e Music) · Remotion e Hyperframes · Higgsfield (Kling 2.5 Turbo)</span><span class="linha"><b>Quando</b> a cada reel</span></span></button><button class="ponto" style="left:31.2%;top:53.2%;--c:#3f9a6b" aria-label="Vera, Revisora independente">
+<span class="halo"></span><span class="nome">Vera</span><span class="cartao dir baixo" role="tooltip"><span class="g" style="color:#3f9a6b">Estúdio de conteúdo</span>
+<strong>Vera</strong><em>Revisora independente</em><span class="faz">Lê só a peça e as regras, nunca a conversa de quem escreveu. Confere 21 itens e devolve o que falhou, em até 2 rodadas.</span>
+<span class="linha"><b>Modelo</b> Claude Opus · gpt-6.1-sol dentro do motor</span><span class="linha"><b>Quando</b> antes de cada aprovação</span></span></button><button class="ponto" style="left:71.3%;top:42.0%;--c:#d08a2e" aria-label="Pipa, Especialista do nicho">
+<span class="halo"></span><span class="nome">Pipa</span><span class="cartao esq baixo" role="tooltip"><span class="g" style="color:#d08a2e">Anúncios e operação</span>
+<strong>Pipa</strong><em>Especialista do nicho</em><span class="faz">Conhece quem compra em cada nicho (hoje, saúde pet): identidades além de cliente, calendário, iscas e o que funcionou.</span>
+<span class="linha"><b>Modelo</b> Claude Opus · skill trafego-meta</span><span class="linha"><b>Quando</b> a cada campanha</span></span></button><button class="ponto" style="left:81.7%;top:42.0%;--c:#d08a2e" aria-label="Rui, Planejador de tráfego">
+<span class="halo"></span><span class="nome">Rui</span><span class="cartao esq baixo" role="tooltip"><span class="g" style="color:#d08a2e">Anúncios e operação</span>
+<strong>Rui</strong><em>Planejador de tráfego</em><span class="faz">Desenha a campanha 1-1-X, o lote de criativos e os formulários, e sobe tudo pausado. Nada vai ao ar sem o sim do diretor.</span>
+<span class="linha"><b>Modelo</b> Claude Opus · API do Meta Ads</span><span class="linha"><b>Quando</b> a cada campanha</span></span></button><button class="ponto" style="left:92.1%;top:41.5%;--c:#d08a2e" aria-label="Tito, Leitor de resultados">
+<span class="halo"></span><span class="nome">Tito</span><span class="cartao esq baixo" role="tooltip"><span class="g" style="color:#d08a2e">Anúncios e operação</span>
+<strong>Tito</strong><em>Leitor de resultados</em><span class="faz">Lê custo por lead e taxa de envio, corta o anúncio que gasta sem trazer contato e propõe o que entra no lugar.</span>
+<span class="linha"><b>Modelo</b> Claude Opus · Meta Ads</span><span class="linha"><b>Quando</b> 3, 7 e 30 dias</span></span></button><button class="ponto" style="left:75.5%;top:54.7%;--c:#d08a2e" aria-label="Otto, Analista">
+<span class="halo"></span><span class="nome">Otto</span><span class="cartao esq baixo" role="tooltip"><span class="g" style="color:#d08a2e">Anúncios e operação</span>
+<strong>Otto</strong><em>Analista</em><span class="faz">Mede a semana no Instagram, no Google Analytics e no Meta, e grava o que performou para a pauta seguinte.</span>
+<span class="linha"><b>Modelo</b> Claude Opus · relatório automático</span><span class="linha"><b>Quando</b> domingo, 20h</span></span></button><button class="ponto" style="left:89.5%;top:54.7%;--c:#d08a2e" aria-label="Nico, Operação">
+<span class="halo"></span><span class="nome">Nico</span><span class="cartao esq baixo" role="tooltip"><span class="g" style="color:#d08a2e">Anúncios e operação</span>
+<strong>Nico</strong><em>Operação</em><span class="faz">Organiza a fila de aprovações no Telegram, uma por vez, publica no Instagram e na Página do Facebook e leva cada lead do formulário para a planilha da marca.</span>
+<span class="linha"><b>Modelo</b> sem IA: robôs em TypeScript e integração Meta → Google Sheets</span><span class="linha"><b>Quando</b> o tempo todo</span></span></button><button class="ponto" style="left:52.1%;top:31.1%;--c:#4a6fd1" aria-label="Leonardo, Diretor">
+<span class="halo"></span><span class="nome">Leonardo</span><span class="cartao dir baixo" role="tooltip"><span class="g" style="color:#4a6fd1">Direção</span>
+<strong>Leonardo</strong><em>Diretor</em><span class="faz">Aprova cada peça, cada verba e cada campanha. Nenhum agente publica, gasta ou muda nada sem o sim dele.</span>
+<span class="linha"><b>Modelo</b> humano</span><span class="linha"><b>Quando</b> sempre</span></span></button></div>
+<main><h2>Quem é quem</h2><p class="sub">A mesma equipe, em lista.</p><div class="grade"><article class="ficha" style="--c:#3f9a6b"><span class="g">Estúdio de conteúdo</span><h3>Marina <small>Pesquisadora</small></h3>
+<p>Levanta datas, eventos de Floripa, buscas em alta e fatos técnicos, sempre com fonte e data. Entrega a matéria-prima da pauta.</p><p class="m"><b>Modelo:</b> Perplexity (Search API) e Firecrawl, em revezamento · Claude Opus organiza<br><b>Quando:</b> todo dia, 7h30</p></article><article class="ficha" style="--c:#3f9a6b"><span class="g">Estúdio de conteúdo</span><h3>Bento <small>Estrategista</small></h3>
+<p>Monta a pauta do dia de cada marca: um tema, três ângulos (stories, reel, carrossel), o que vender e o que não dizer. Usa o que performou na semana.</p><p class="m"><b>Modelo:</b> Claude Opus<br><b>Quando:</b> todo dia, 7h30</p></article><article class="ficha" style="--c:#3f9a6b"><span class="g">Estúdio de conteúdo</span><h3>Iara <small>Redatora</small></h3>
+<p>Escreve stories, roteiros de reel, legendas e artigos do blog, na voz de cada marca e na estrutura de 8 blocos.</p><p class="m"><b>Modelo:</b> Claude Opus<br><b>Quando:</b> stories 9h · reels 10h · artigos semanais</p></article><article class="ficha" style="--c:#3f9a6b"><span class="g">Estúdio de conteúdo</span><h3>Caio <small>Redator do carrossel</small></h3>
+<p>Escreve os carrosséis diários dentro do motor automático, a partir da pauta, com palavra-chave e CTA na legenda.</p><p class="m"><b>Modelo:</b> OpenAI gpt-6.1-sol<br><b>Quando:</b> todo dia, 9h</p></article><article class="ficha" style="--c:#3f9a6b"><span class="g">Estúdio de conteúdo</span><h3>Lia <small>Diretora de arte</small></h3>
+<p>Propõe o mosaico de 4 estilos, gera cenas inéditas (nunca repete imagem nem estilo) e confere cada arte antes de seguir.</p><p class="m"><b>Modelo:</b> OpenAI gpt-image-2.5-sunburst (imagens) · gpt-5.6-luna (conferência)<br><b>Quando:</b> a cada peça</p></article><article class="ficha" style="--c:#3f9a6b"><span class="g">Estúdio de conteúdo</span><h3>Theo <small>Vídeo, voz e trilha</small></h3>
+<p>Grava a narração na voz da marca, compõe a música de fundo e monta os reels com legenda palavra a palavra e efeitos; gera cenas em vídeo quando não há filmagem real.</p><p class="m"><b>Modelo:</b> ElevenLabs (eleven_multilingual_v2 e Music) · Remotion e Hyperframes · Higgsfield (Kling 2.5 Turbo)<br><b>Quando:</b> a cada reel</p></article><article class="ficha" style="--c:#3f9a6b"><span class="g">Estúdio de conteúdo</span><h3>Vera <small>Revisora independente</small></h3>
+<p>Lê só a peça e as regras, nunca a conversa de quem escreveu. Confere 21 itens e devolve o que falhou, em até 2 rodadas.</p><p class="m"><b>Modelo:</b> Claude Opus · gpt-6.1-sol dentro do motor<br><b>Quando:</b> antes de cada aprovação</p></article><article class="ficha" style="--c:#d08a2e"><span class="g">Anúncios e operação</span><h3>Pipa <small>Especialista do nicho</small></h3>
+<p>Conhece quem compra em cada nicho (hoje, saúde pet): identidades além de cliente, calendário, iscas e o que funcionou.</p><p class="m"><b>Modelo:</b> Claude Opus · skill trafego-meta<br><b>Quando:</b> a cada campanha</p></article><article class="ficha" style="--c:#d08a2e"><span class="g">Anúncios e operação</span><h3>Rui <small>Planejador de tráfego</small></h3>
+<p>Desenha a campanha 1-1-X, o lote de criativos e os formulários, e sobe tudo pausado. Nada vai ao ar sem o sim do diretor.</p><p class="m"><b>Modelo:</b> Claude Opus · API do Meta Ads<br><b>Quando:</b> a cada campanha</p></article><article class="ficha" style="--c:#d08a2e"><span class="g">Anúncios e operação</span><h3>Tito <small>Leitor de resultados</small></h3>
+<p>Lê custo por lead e taxa de envio, corta o anúncio que gasta sem trazer contato e propõe o que entra no lugar.</p><p class="m"><b>Modelo:</b> Claude Opus · Meta Ads<br><b>Quando:</b> 3, 7 e 30 dias</p></article><article class="ficha" style="--c:#d08a2e"><span class="g">Anúncios e operação</span><h3>Otto <small>Analista</small></h3>
+<p>Mede a semana no Instagram, no Google Analytics e no Meta, e grava o que performou para a pauta seguinte.</p><p class="m"><b>Modelo:</b> Claude Opus · relatório automático<br><b>Quando:</b> domingo, 20h</p></article><article class="ficha" style="--c:#d08a2e"><span class="g">Anúncios e operação</span><h3>Nico <small>Operação</small></h3>
+<p>Organiza a fila de aprovações no Telegram, uma por vez, publica no Instagram e na Página do Facebook e leva cada lead do formulário para a planilha da marca.</p><p class="m"><b>Modelo:</b> sem IA: robôs em TypeScript e integração Meta → Google Sheets<br><b>Quando:</b> o tempo todo</p></article><article class="ficha" style="--c:#4a6fd1"><span class="g">Direção</span><h3>Leonardo <small>Diretor</small></h3>
+<p>Aprova cada peça, cada verba e cada campanha. Nenhum agente publica, gasta ou muda nada sem o sim dele.</p><p class="m"><b>Modelo:</b> humano<br><b>Quando:</b> sempre</p></article></div>
+<p class="regra"><b>A regra da casa:</b> nenhum agente publica, gasta ou muda nada sem o sim do diretor. Cada peça passa por uma revisora que não viu a conversa de quem escreveu, imagem e estilo nunca se repetem, e dado pessoal de cliente fica só na planilha da marca.</p></main>
+<footer>AET Solidez · <a href="/">aetsolidez.com.br</a></footer>
+<script>document.querySelectorAll('.ponto').forEach(p=>p.addEventListener('click',ev=>{const ab=p.classList.contains('aberto');document.querySelectorAll('.ponto.aberto').forEach(x=>x.classList.remove('aberto'));if(!ab)p.classList.add('aberto');ev.stopPropagation();}));
+document.addEventListener('click',()=>document.querySelectorAll('.ponto.aberto').forEach(x=>x.classList.remove('aberto')));</script>
+</body></html>

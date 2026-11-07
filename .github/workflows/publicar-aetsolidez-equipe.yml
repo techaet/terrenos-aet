@@ -1,0 +1,23 @@
+name: Publicar aetsolidez.com.br/equipe
+
+# A conta FTP deste repositório enxerga a hospedagem inteira; o site principal fica em public_html/.
+# Publica só a pasta equipe/ (cópia de techaet/site-aetsolidez, que é a fonte), sem apagar nada no servidor.
+on:
+  push:
+    branches: [ main ]
+    paths: [ "_aetsolidez/equipe/**" ]
+  workflow_dispatch:
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get install -y -qq lftp >/dev/null
+      - name: Enviar equipe/
+        env:
+          S: ${{ secrets.FTP_SERVER }}
+          U: ${{ secrets.FTP_USERNAME }}
+          P: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          lftp -u "$U,$P" -e "set ftp:ssl-force true; set ssl:verify-certificate no; mkdir -p public_html/equipe; mirror -R --verbose _aetsolidez/equipe public_html/equipe; cls -1 public_html/equipe/; bye" "$S"

@@ -1,0 +1,118 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - text: AET Solidez · bastidores
+    - heading "A equipe que trabalha de frente para o mar" [level=1] [ref=e3]
+    - paragraph [ref=e4]: Treze estações num co-work imaginário no Campeche. Doze agentes de inteligência artificial pesquisam, escrevem, criam, revisam, anunciam e medem, e um diretor decide. Passe o mouse (ou toque) em cada um para ver o nome, o que faz e o modelo que usa.
+    - generic [ref=e5]:
+      - generic [ref=e6]: Estúdio de conteúdo
+      - generic [ref=e8]: Anúncios e operação
+      - generic [ref=e10]: Direção
+  - generic [ref=e12]:
+    - img "Sala de co-work à beira-mar com treze estações de trabalho, uma para cada agente da equipe" [ref=e13]
+    - button "Marina, Pesquisadora" [ref=e14] [cursor=pointer]:
+      - generic: Marina
+    - button "Bento, Estrategista" [ref=e16] [cursor=pointer]:
+      - generic: Bento
+    - button "Iara, Redatora" [ref=e18] [cursor=pointer]:
+      - generic: Iara
+    - button "Caio, Redator do carrossel" [ref=e20] [cursor=pointer]:
+      - generic: Caio
+    - button "Lia, Diretora de arte" [ref=e22] [cursor=pointer]:
+      - generic: Lia
+    - button "Theo, Vídeo, voz e trilha" [ref=e24] [cursor=pointer]:
+      - generic: Theo
+    - button "Vera, Revisora independente" [ref=e26] [cursor=pointer]:
+      - generic: Vera
+    - button "Pipa, Especialista do nicho" [ref=e28] [cursor=pointer]:
+      - generic: Pipa
+    - button "Rui, Planejador de tráfego" [ref=e30] [cursor=pointer]:
+      - generic: Rui
+    - button "Tito, Leitor de resultados" [ref=e32] [cursor=pointer]:
+      - generic: Tito
+      - tooltip "Anúncios e operação Tito Leitor de resultados Lê custo por lead e taxa de envio, corta o anúncio que gasta sem trazer contato e propõe o que entra no lugar. Modelo Claude Opus · Meta Ads Quando 3, 7 e 30 dias" [ref=e106]:
+        - generic [ref=e107]: Anúncios e operação
+        - strong [ref=e108]: Tito
+        - emphasis [ref=e109]: Leitor de resultados
+        - generic [ref=e110]: Lê custo por lead e taxa de envio, corta o anúncio que gasta sem trazer contato e propõe o que entra no lugar.
+        - generic [ref=e111]: Modelo Claude Opus · Meta Ads
+        - generic [ref=e112]: Quando 3, 7 e 30 dias
+    - button "Otto, Analista" [ref=e34] [cursor=pointer]:
+      - generic: Otto
+    - button "Nico, Operação" [ref=e36] [cursor=pointer]:
+      - generic: Nico
+    - button "Leonardo, Diretor" [ref=e38] [cursor=pointer]:
+      - generic: Leonardo
+  - main [ref=e40]:
+    - heading "Quem é quem" [level=2] [ref=e41]
+    - paragraph [ref=e42]: A mesma equipe, em lista.
+    - generic [ref=e43]:
+      - article [ref=e44]:
+        - text: Estúdio de conteúdo
+        - heading "Marina Pesquisadora" [level=3] [ref=e45]
+        - paragraph [ref=e46]: Levanta datas, eventos de Floripa, buscas em alta e fatos técnicos, sempre com fonte e data. Entrega a matéria-prima da pauta.
+        - paragraph [ref=e47]: "Modelo: Perplexity (Search API) e Firecrawl, em revezamento · Claude Opus organizaQuando: todo dia, 7h30"
+      - article [ref=e48]:
+        - text: Estúdio de conteúdo
+        - heading "Bento Estrategista" [level=3] [ref=e49]
+        - paragraph [ref=e50]: "Monta a pauta do dia de cada marca: um tema, três ângulos (stories, reel, carrossel), o que vender e o que não dizer. Usa o que performou na semana."
+        - paragraph [ref=e51]: "Modelo: Claude OpusQuando: todo dia, 7h30"
+      - article [ref=e52]:
+        - text: Estúdio de conteúdo
+        - heading "Iara Redatora" [level=3] [ref=e53]
+        - paragraph [ref=e54]: Escreve stories, roteiros de reel, legendas e artigos do blog, na voz de cada marca e na estrutura de 8 blocos.
+        - paragraph [ref=e55]: "Modelo: Claude OpusQuando: stories 9h · reels 10h · artigos semanais"
+      - article [ref=e56]:
+        - text: Estúdio de conteúdo
+        - heading "Caio Redator do carrossel" [level=3] [ref=e57]
+        - paragraph [ref=e58]: Escreve os carrosséis diários dentro do motor automático, a partir da pauta, com palavra-chave e CTA na legenda.
+        - paragraph [ref=e59]: "Modelo: OpenAI gpt-6.1-solQuando: todo dia, 9h"
+      - article [ref=e60]:
+        - text: Estúdio de conteúdo
+        - heading "Lia Diretora de arte" [level=3] [ref=e61]
+        - paragraph [ref=e62]: Propõe o mosaico de 4 estilos, gera cenas inéditas (nunca repete imagem nem estilo) e confere cada arte antes de seguir.
+        - paragraph [ref=e63]: "Modelo: OpenAI gpt-image-2.5-sunburst (imagens) · gpt-5.6-luna (conferência)Quando: a cada peça"
+      - article [ref=e64]:
+        - text: Estúdio de conteúdo
+        - heading "Theo Vídeo, voz e trilha" [level=3] [ref=e65]
+        - paragraph [ref=e66]: Grava a narração na voz da marca, compõe a música de fundo e monta os reels com legenda palavra a palavra e efeitos; gera cenas em vídeo quando não há filmagem real.
+        - paragraph [ref=e67]: "Modelo: ElevenLabs (eleven_multilingual_v2 e Music) · Remotion e Hyperframes · Higgsfield (Kling 2.5 Turbo)Quando: a cada reel"
+      - article [ref=e68]:
+        - text: Estúdio de conteúdo
+        - heading "Vera Revisora independente" [level=3] [ref=e69]
+        - paragraph [ref=e70]: Lê só a peça e as regras, nunca a conversa de quem escreveu. Confere 21 itens e devolve o que falhou, em até 2 rodadas.
+        - paragraph [ref=e71]: "Modelo: Claude Opus · gpt-6.1-sol dentro do motorQuando: antes de cada aprovação"
+      - article [ref=e72]:
+        - text: Anúncios e operação
+        - heading "Pipa Especialista do nicho" [level=3] [ref=e73]
+        - paragraph [ref=e74]: "Conhece quem compra em cada nicho (hoje, saúde pet): identidades além de cliente, calendário, iscas e o que funcionou."
+        - paragraph [ref=e75]: "Modelo: Claude Opus · skill trafego-metaQuando: a cada campanha"
+      - article [ref=e76]:
+        - text: Anúncios e operação
+        - heading "Rui Planejador de tráfego" [level=3] [ref=e77]
+        - paragraph [ref=e78]: Desenha a campanha 1-1-X, o lote de criativos e os formulários, e sobe tudo pausado. Nada vai ao ar sem o sim do diretor.
+        - paragraph [ref=e79]: "Modelo: Claude Opus · API do Meta AdsQuando: a cada campanha"
+      - article [ref=e80]:
+        - text: Anúncios e operação
+        - heading "Tito Leitor de resultados" [level=3] [ref=e81]
+        - paragraph [ref=e82]: Lê custo por lead e taxa de envio, corta o anúncio que gasta sem trazer contato e propõe o que entra no lugar.
+        - paragraph [ref=e83]: "Modelo: Claude Opus · Meta AdsQuando: 3, 7 e 30 dias"
+      - article [ref=e84]:
+        - text: Anúncios e operação
+        - heading "Otto Analista" [level=3] [ref=e85]
+        - paragraph [ref=e86]: Mede a semana no Instagram, no Google Analytics e no Meta, e grava o que performou para a pauta seguinte.
+        - paragraph [ref=e87]: "Modelo: Claude Opus · relatório automáticoQuando: domingo, 20h"
+      - article [ref=e88]:
+        - text: Anúncios e operação
+        - heading "Nico Operação" [level=3] [ref=e89]
+        - paragraph [ref=e90]: Organiza a fila de aprovações no Telegram, uma por vez, publica no Instagram e na Página do Facebook e leva cada lead do formulário para a planilha da marca.
+        - paragraph [ref=e91]: "Modelo: sem IA: robôs em TypeScript e integração Meta → Google SheetsQuando: o tempo todo"
+      - article [ref=e92]:
+        - text: Direção
+        - heading "Leonardo Diretor" [level=3] [ref=e93]
+        - paragraph [ref=e94]: Aprova cada peça, cada verba e cada campanha. Nenhum agente publica, gasta ou muda nada sem o sim dele.
+        - paragraph [ref=e95]: "Modelo: humanoQuando: sempre"
+    - paragraph [ref=e96]: "A regra da casa: nenhum agente publica, gasta ou muda nada sem o sim do diretor. Cada peça passa por uma revisora que não viu a conversa de quem escreveu, imagem e estilo nunca se repetem, e dado pessoal de cliente fica só na planilha da marca."
+  - contentinfo [ref=e97]:
+    - text: AET Solidez ·
+    - link "aetsolidez.com.br" [ref=e98] [cursor=pointer]:
+      - /url: /
