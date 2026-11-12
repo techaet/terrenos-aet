@@ -1,0 +1,585 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Painel do petshop — demonstração</title>
+<style>
+  :root{
+    --fundo:#f3f0e8; --papel:#fffdf9; --tinta:#1c2620; --suave:#647067; --linha:#e0d9cb;
+    --verde:#1d5a43; --verde-esc:#15432f; --verde-claro:#e4efe8;
+    --ocre-claro:#fbf1dc; --ocre:#7a5410;
+    --vermelho:#a23b2a; --vermelho-claro:#f9e6e1; --azul:#27557f; --azul-claro:#e3edf6;
+    --sombra:0 1px 2px rgba(28,38,32,.06),0 6px 20px rgba(28,38,32,.06);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--fundo);color:var(--tinta);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",sans-serif}
+  svg.i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+  button{font:inherit;color:inherit;cursor:pointer}
+  button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible,li:focus-visible{outline:2px solid var(--azul);outline-offset:2px}
+  .topo{background:var(--verde);color:#fff;padding:12px 20px;display:flex;gap:12px;align-items:center;justify-content:space-between}
+  .topo .marca{display:flex;gap:10px;align-items:center;font-weight:650;font-size:16px}
+  .topo .pata{width:30px;height:30px;border-radius:9px;background:#ffffff22;display:grid;place-items:center}
+  .topo .estado{font-size:13px;opacity:.9;display:flex;gap:6px;align-items:center}
+  .topo .estado i{width:8px;height:8px;border-radius:50%;background:#7be0a8;display:inline-block}
+  nav{display:flex;gap:2px;padding:0 12px;background:var(--papel);border-bottom:1px solid var(--linha);position:sticky;top:0;z-index:5}
+  nav button{border:0;background:none;padding:12px 14px;color:var(--suave);border-bottom:3px solid transparent;display:flex;gap:7px;align-items:center;white-space:nowrap}
+  nav button[aria-selected=true]{color:var(--verde);border-color:var(--verde);font-weight:650}
+  nav .bolha{background:var(--vermelho);color:#fff;border-radius:999px;font-size:11px;padding:0 6px;font-weight:700}
+  main{padding:20px;max-width:1240px;margin:0 auto}
+  [hidden]{display:none!important}
+  h1{margin:0;font-size:21px;letter-spacing:-.01em}
+  h2{margin:0 0 8px;font-size:16px}
+  .sub{color:var(--suave);margin:2px 0 16px}
+  .cartao{background:var(--papel);border:1px solid var(--linha);border-radius:14px;padding:16px;min-width:0;box-shadow:var(--sombra)}
+  .grade{display:grid;gap:16px}
+  .metade{grid-template-columns:1fr 1fr}
+  .cv{display:grid;grid-template-columns:370px 1fr;gap:16px;align-items:start}
+  .ic.voltar{display:none}
+  .rotulo{font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--suave);margin:14px 0 6px;font-weight:600}
+  input[type=search],input[type=text],textarea,select{width:100%;padding:10px 12px;border:1px solid var(--linha);border-radius:10px;font:inherit;background:#fff;color:var(--tinta)}
+  textarea{resize:vertical}
+  select.curto{width:auto;padding:6px 8px;font-size:13px}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{border:1px solid var(--linha);background:#fff;border-radius:999px;padding:5px 12px;font-size:13px}
+  .chip.on{background:var(--verde);border-color:var(--verde);color:#fff}
+  .chip b{margin-left:2px}
+  .chip.quente:not(.on) b{color:var(--vermelho)}
+  .linha{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .entre{justify-content:space-between}
+  .btn{border:1px solid var(--verde);border-radius:10px;padding:9px 15px;font-weight:650;background:var(--verde);color:#fff;display:inline-flex;gap:7px;align-items:center}
+  .btn:hover{background:var(--verde-esc)}
+  .btn.sec{background:#fff;color:var(--tinta);border-color:var(--linha)}
+  .btn.sec:hover{background:var(--fundo)}
+  .btn:disabled{opacity:.5;cursor:default}
+  .ic{border:1px solid var(--linha);background:#fff;border-radius:10px;width:38px;height:38px;display:grid;place-items:center;color:var(--suave)}
+  .ic[aria-pressed=true]{background:var(--ocre-claro);color:var(--ocre);border-color:#e6d2a3}
+  .lote{background:var(--verde-claro);border-radius:10px;padding:8px 10px;margin-top:10px;font-size:13px}
+  .mini{border:1px solid var(--linha);background:#fff;border-radius:8px;padding:4px 9px;font-size:13px}
+  .lista{list-style:none;margin:10px -6px 0;padding:0}
+  .lista li{padding:11px 10px;border-top:1px solid var(--linha);display:flex;gap:10px;border-radius:10px;cursor:pointer}
+  .lista li:hover{background:var(--fundo)}
+  .lista li.sel{background:var(--verde-claro)}
+  .lista .corpo{min-width:0;flex:1}
+  .lista .prev{color:var(--suave);font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .lista li.nl strong{font-weight:750}
+  .lista li.nl .prev{color:var(--tinta)}
+  .av{width:38px;height:38px;border-radius:50%;background:var(--verde-claro);color:var(--verde);display:grid;place-items:center;font-weight:700;font-size:13px;flex:none}
+  .selo{display:inline-block;font-size:11px;padding:1px 8px;border-radius:999px;font-weight:650}
+  .s-humano{background:var(--vermelho-claro);color:var(--vermelho)}
+  .s-ok{background:var(--verde-claro);color:var(--verde)}
+  .s-idioma{background:var(--azul-claro);color:var(--azul)}
+  .s-urg{background:var(--vermelho);color:#fff}
+  .vazio{color:var(--suave);text-align:center;padding:26px 10px}
+  .bilhete{border:1px dashed #d6c391;background:var(--ocre-claro);border-radius:12px;padding:12px 14px;margin:14px 0}
+  .bilhete dl{display:grid;grid-template-columns:auto 1fr;gap:3px 14px;margin:8px 0 0;font-size:14px}
+  .bilhete dt{color:var(--ocre)}
+  .bilhete dd{margin:0}
+  .fio{display:flex;flex-direction:column;gap:10px;margin:12px 0}
+  .msg{max-width:80%;padding:9px 13px;border-radius:14px 14px 14px 4px;border:1px solid var(--linha);background:#fff}
+  .msg.r,.msg.d{align-self:flex-end;border-radius:14px 14px 4px 14px}
+  .msg.r{background:var(--verde-claro);border-color:#c8ddd0}
+  .msg.d{background:var(--ocre-claro);border-color:#ecd9ae}
+  .msg.s{align-self:center;background:none;border:0;color:var(--suave);font-size:13px;padding:0}
+  .msg .quem{font-size:11.5px;color:var(--suave);display:flex;gap:10px;justify-content:space-between;margin-bottom:2px}
+  .msg .orig{font-size:13px;color:var(--suave);border-top:1px dashed var(--linha);margin-top:6px;padding-top:6px}
+  .ver-trad .orig,.ver-orig .trad{display:none}
+  .ver-orig .orig{border:0;margin:0;padding:0;font-size:15px;color:var(--tinta)}
+  .faixa{padding:10px 12px;border-radius:10px;font-size:14px;margin:10px 0}
+  .f-ok{background:var(--verde-claro);color:var(--verde)}
+  .f-at{background:var(--vermelho-claro);color:var(--vermelho)}
+  .f-info{background:var(--azul-claro);color:var(--azul)}
+  .compor{border-top:1px solid var(--linha);margin-top:14px;padding-top:12px}
+  .suave{color:var(--suave);font-size:13px}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th,td{text-align:left;padding:8px 6px;border-top:1px solid var(--linha);vertical-align:top}
+  th{font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--suave);border-top:0}
+  .passos{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 16px;padding:0;list-style:none;font-size:13px}
+  .passos li{padding:4px 11px;border-radius:999px;background:#fff;border:1px solid var(--linha);color:var(--suave)}
+  .passos li.feito{background:var(--verde-claro);color:var(--verde);border-color:#c8ddd0}
+  .passos li.agora{background:var(--verde);color:#fff;border-color:var(--verde)}
+  .lnk{background:none;border:0;padding:0;color:var(--azul);font-size:13px;text-decoration:underline}
+  dialog{border:0;border-radius:16px;padding:0;width:min(520px,calc(100vw - 24px));box-shadow:0 20px 60px rgba(0,0,0,.25);color:var(--tinta)}
+  dialog::backdrop{background:rgba(28,38,32,.45)}
+  .dlg-cab{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid var(--linha)}
+  .dlg-cab h2{margin:0}
+  .dlg-corpo{padding:14px 16px 16px}
+  .x{border:0;background:none;font-size:22px;line-height:1;color:var(--suave);padding:2px 6px}
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--tinta);color:#fff;padding:10px 16px;border-radius:999px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:20;max-width:calc(100vw - 32px);text-align:center}
+  .toast.on{opacity:1}
+  .gira{width:26px;height:26px;border:3px solid var(--verde-claro);border-top-color:var(--verde);border-radius:50%;animation:g 0.8s linear infinite;margin:0 auto 10px}
+  @keyframes g{to{transform:rotate(360deg)}}
+  @media (prefers-reduced-motion:reduce){.gira{animation:none}}
+  footer{color:var(--suave);font-size:12.5px;text-align:center;padding:8px 20px 28px}
+  @media (max-width:880px){
+    main{padding:12px 12px 8px}
+    body{padding-bottom:66px}
+    .metade,.cv{grid-template-columns:1fr}
+    .topo .estado span{display:none}
+    nav{position:fixed;top:auto;bottom:0;left:0;right:0;border-top:1px solid var(--linha);border-bottom:0;padding:0;justify-content:space-around}
+    nav button{flex-direction:column;gap:2px;font-size:11px;padding:8px 4px 10px;border-bottom:0;border-top:3px solid transparent;flex:1;position:relative}
+    nav button[aria-selected=true]{border-color:var(--verde)}
+    nav .bolha{position:absolute;top:4px;left:calc(50% + 6px)}
+    .cv .conv{display:none}
+    .cv.aberta .conv{display:block}
+    .cv.aberta .caixa{display:none}
+    .ic.voltar{display:grid}
+    .msg{max-width:90%}
+    .toast{bottom:78px}
+    .cartao{padding:14px;border-radius:12px}
+  }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M20 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20l1.2-4.4A8.4 8.4 0 1 1 20 11.5z"/></symbol>
+  <symbol id="i-alvo" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".6"/></symbol>
+  <symbol id="i-teste" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3M7.5 15h9"/></symbol>
+  <symbol id="i-ficha" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></symbol>
+  <symbol id="i-inicio" viewBox="0 0 24 24"><path d="M12 3l1.8 4.6L18 9.4l-4.2 1.8L12 16l-1.8-4.8L6 9.4l4.2-1.8zM18 15l.9 2.1L21 18l-2.1.9L18 21l-.9-2.1L15 18l2.1-.9z"/></symbol>
+  <symbol id="i-lapis" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></symbol>
+  <symbol id="i-estrela" viewBox="0 0 24 24"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z"/></symbol>
+  <symbol id="i-sino" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/></symbol>
+  <symbol id="i-bloq" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M6.3 6.3l11.4 11.4"/></symbol>
+  <symbol id="i-foto" viewBox="0 0 24 24"><path d="M4 8a2 2 0 0 1 2-2h2l1.5-2h5L16 6h2a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><circle cx="12" cy="13" r="3.5"/></symbol>
+  <symbol id="i-copia" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></symbol>
+  <symbol id="i-volta" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+  <symbol id="i-clipe" viewBox="0 0 24 24"><path d="M21 11.5 12.5 20a5 5 0 0 1-7-7l8.5-8.5a3.5 3.5 0 0 1 5 5L10.5 18a2 2 0 0 1-3-3l7.5-7.5"/></symbol>
+  <symbol id="i-envia" viewBox="0 0 24 24"><path d="M4 12 20 4l-6 16-3-7z"/></symbol>
+  <symbol id="i-marca" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="m8.5 12 2.5 2.5 4.5-5"/></symbol>
+  <symbol id="i-pata" viewBox="0 0 24 24"><circle cx="7" cy="9" r="1.8"/><circle cx="12" cy="6.5" r="1.8"/><circle cx="17" cy="9" r="1.8"/><path d="M12 12c-3 0-5 2.6-5 4.8 0 1.6 1.3 2.4 2.6 2.1.9-.2 1.6-.5 2.4-.5s1.5.3 2.4.5c1.300.3 2.600-.5 2.600-2.100 0-2.200-2-4.800-5-4.800z"/></symbol>
+</defs></svg>
+
+<div class="topo">
+  <div class="marca"><span class="pata"><svg class="i"><use href="#i-pata"/></svg></span>Petshop Exemplo</div>
+  <div class="estado"><i></i>Robô no ar<span> · agenda ligada ao sistema da loja</span></div>
+</div>
+
+<nav role="tablist" aria-label="Telas do painel">
+  <button role="tab" aria-selected="true" data-tela="conversas"><svg class="i"><use href="#i-chat"/></svg>Conversas <span class="bolha" id="nav-pede"></span></button>
+  <button role="tab" aria-selected="false" data-tela="calibrar"><svg class="i"><use href="#i-alvo"/></svg>Calibrador <span class="bolha" id="nav-fila"></span></button>
+  <button role="tab" aria-selected="false" data-tela="testar"><svg class="i"><use href="#i-teste"/></svg>Testar</button>
+  <button role="tab" aria-selected="false" data-tela="ficha"><svg class="i"><use href="#i-ficha"/></svg>Ficha</button>
+  <button role="tab" aria-selected="false" data-tela="comecar"><svg class="i"><use href="#i-inicio"/></svg>Início</button>
+</nav>
+
+<main>
+
+<!-- CONVERSAS -->
+<section id="conversas">
+  <div class="cv" id="cv">
+    <div class="cartao caixa">
+      <div class="linha entre">
+        <h1>Conversas</h1>
+        <button class="ic" id="bt-sel" aria-pressed="false" title="Selecionar várias" aria-label="Selecionar várias"><svg class="i"><use href="#i-marca"/></svg></button>
+      </div>
+      <div class="chips" id="abas" style="margin:12px 0" role="group" aria-label="Mostrar">
+        <button class="chip quente" data-aba="pede">Pedem você <b id="n-pede"></b></button>
+        <button class="chip" data-aba="nl">Não lidas <b id="n-nl"></b></button>
+        <button class="chip on" data-aba="todas">Todas</button>
+        <button class="chip" data-aba="voce">Com você</button>
+        <button class="chip" data-aba="agendou">Agendou</button>
+        <button class="chip" data-aba="fav">Favoritas</button>
+      </div>
+      <input type="search" id="busca" placeholder="Nome, pet ou telefone…" aria-label="Buscar conversa">
+      <div class="linha" style="margin-top:8px">
+        <select class="curto" id="f-serv" aria-label="Serviço"><option value="">Serviço: todos</option><option>Banho</option><option>Banho e tosa</option></select>
+        <select class="curto" id="f-lng" aria-label="Idioma"><option value="">Idioma: todos</option><option value="PT">Português</option><option value="RU">Русский</option></select>
+      </div>
+      <div class="lote linha" id="lote" hidden>
+        <b id="qtd">Nenhuma selecionada</b>
+        <button class="mini" data-lote="Marcadas como lidas">Lidas</button><button class="mini" data-lote="Arquivadas">Arquivar</button>
+        <button class="mini" data-lote="Devolvidas ao robô">Devolver</button><button class="mini" id="bt-oferta">Enviar oferta</button>
+      </div>
+      <ul class="lista" id="lista" aria-label="Conversas"></ul>
+      <p class="vazio" id="lista-vazia" hidden>Nenhuma conversa com esse filtro.</p>
+    </div>
+    <div class="cartao conv" id="conv"></div>
+  </div>
+</section>
+
+<!-- CALIBRADOR -->
+<section id="calibrar" hidden>
+  <h1>Calibrador</h1>
+  <p class="sub">Você conta o que o robô fez de errado, com as suas palavras. Ele ajusta, testa e só então publica.</p>
+  <ol class="passos" id="cal-passos"></ol>
+  <div class="grade metade">
+    <div class="cartao">
+      <h2>Casos guardados</h2>
+      <p class="suave" style="margin:0 0 8px">Cada caso vem de uma conversa, pelo botão de alvo. Nada muda até você tocar em Pode corrigir.</p>
+      <table id="cal-fila"></table>
+      <p class="vazio" id="cal-vazia" hidden>Nenhum caso na fila. Abra uma conversa e toque no alvo para reportar.</p>
+      <div class="linha" style="margin-top:12px"><button class="btn sec" data-tela="conversas">Tenho mais casos</button><button class="btn" id="cal-corrigir">Pode corrigir</button></div>
+      <div class="rotulo">Últimas mudanças no ar</div>
+      <table id="cal-mud"></table>
+    </div>
+    <div class="cartao" id="cal-direita"></div>
+  </div>
+</section>
+
+<!-- TESTAR -->
+<section id="testar" hidden>
+  <h1>Testar o robô</h1>
+  <p class="sub">Converse como se fosse um cliente. Nada daqui vai para o WhatsApp de ninguém.</p>
+  <div class="grade metade">
+    <div class="cartao">
+      <div class="rotulo" style="margin-top:0">Toque numa pergunta</div>
+      <div class="chips" id="t-prontas"></div>
+      <div class="rotulo">Bateria de testes</div>
+      <p style="margin:0">64 conversas de teste. 61 vieram de casos que você reportou: o que já foi corrigido não volta a errar sem você saber.</p>
+      <div class="linha" style="margin-top:10px"><button class="btn sec" id="t-rodar">Rodar todos agora</button><span class="suave" id="t-res"></span></div>
+    </div>
+    <div class="cartao">
+      <div class="fio ver-ambos" id="t-fio" style="margin-top:0"></div>
+      <form class="linha" id="t-form"><input type="text" id="t-txt" placeholder="Escreva como cliente…" aria-label="Mensagem de teste" style="flex:1;width:auto"><button class="btn" aria-label="Enviar"><svg class="i"><use href="#i-envia"/></svg></button></form>
+    </div>
+  </div>
+</section>
+
+<!-- FICHA -->
+<section id="ficha" hidden>
+  <h1>Ficha do petshop</h1>
+  <p class="sub">O que o robô sabe sobre a loja. Toda mudança passa pelos testes antes de ir ao ar.</p>
+  <div class="grade metade">
+    <div class="cartao">
+      <h2>Serviços e preços</h2>
+      <table>
+        <tr><th>Serviço</th><th>Porte</th><th>Preço</th><th>Tempo</th></tr>
+        <tr><td>Banho</td><td>Pequeno</td><td>R$ 60</td><td>1h</td></tr>
+        <tr><td>Banho</td><td>Grande</td><td>R$ 110</td><td>1h30</td></tr>
+        <tr><td>Banho e tosa</td><td>Spitz</td><td>R$ 150</td><td>2h</td></tr>
+        <tr><td>Banho de gato</td><td>—</td><td>R$ 90</td><td>1h30</td></tr>
+        <tr><td>Hotel</td><td>Diária</td><td>R$ 95</td><td>—</td></tr>
+      </table>
+      <div class="linha" style="margin-top:12px"><button class="btn sec demo">Adicionar serviço</button><button class="btn sec demo">Enviar foto da tabela</button></div>
+      <div class="rotulo">Cupons</div>
+      <table>
+        <tr><td><b>BANHO10</b></td><td>10% no banho</td><td>até 30/11</td></tr>
+        <tr><td><b>VOLTA15</b></td><td>15% para quem não vem há 60 dias</td><td>sem prazo</td></tr>
+      </table>
+    </div>
+    <div class="cartao">
+      <h2>Como o robô trabalha</h2>
+      <div class="rotulo" style="margin-top:0">Agenda</div>
+      <select aria-label="Sistema de agenda"><option>Ligada ao sistema da loja: o robô vê os horários e marca sozinho</option><option>Sem ligação: o robô colhe o pedido e você marca</option></select>
+      <div class="rotulo">Horários</div>
+      <p style="margin:0">Segunda a sexta 8h–18h · Sábado 9h–13h · Domingo fechado</p>
+      <div class="rotulo">Jeito de falar</div>
+      <div class="chips um"><button class="chip on">Próximo e simples</button><button class="chip">Mais formal</button><button class="chip">Brincalhão</button></div>
+      <div class="rotulo">Idiomas em que atende</div>
+      <div class="chips varios"><button class="chip on">Português</button><button class="chip on">Русский</button><button class="chip">Español</button><button class="chip">English</button></div>
+      <div class="rotulo">Quando chamar você</div>
+      <div class="chips varios"><button class="chip on">Reclamação</button><button class="chip on">Pedido de desconto</button><button class="chip on">Pet idoso ou doente</button><button class="chip">Todo agendamento</button></div>
+      <div class="rotulo">Sempre, em qualquer petshop</div>
+      <p class="suave" style="margin:0">Nunca indica remédio nem diagnóstico. Urgência de saúde vai para uma pessoa. Para de escrever quando o cliente pede.</p>
+    </div>
+  </div>
+</section>
+
+<!-- INÍCIO -->
+<section id="comecar" hidden>
+  <h1>Primeira configuração</h1>
+  <p class="sub">Uma conversa de uns 20 minutos monta a ficha. Dá para mandar foto, áudio ou o link do Instagram.</p>
+  <ol class="passos"><li class="feito">Serviços e preços</li><li class="agora">Horários</li><li>Agenda</li><li>Jeito de falar</li><li>Quando chamar você</li><li>Teste final</li></ol>
+  <div class="grade metade">
+    <div class="cartao">
+      <div class="fio" style="margin-top:0">
+        <div class="msg"><div class="quem"><span>Assistente de configuração</span></div>Li a foto da tabela e encontrei 5 serviços. De segunda a sexta vocês abrem das 8h às 18h, certo? E no sábado?</div>
+        <div class="msg d"><div class="quem"><span>Você</span></div>Sábado só de manhã, das 9 à 1</div>
+        <div class="msg"><div class="quem"><span>Assistente de configuração</span></div>Anotado: sábado das 9h às 13h, domingo fechado. No sábado vocês fazem tosa ou só banho?</div>
+      </div>
+      <input type="text" placeholder="Responda aqui, ou grave um áudio" aria-label="Sua resposta">
+    </div>
+    <div class="cartao">
+      <h2>O que já entendi</h2>
+      <table>
+        <tr><td>Serviços</td><td>5 encontrados na foto da tabela</td></tr>
+        <tr><td>Preços</td><td>Conferidos por você</td></tr>
+        <tr><td>Horários</td><td>Falta confirmar o sábado</td></tr>
+        <tr><td>Endereço</td><td>Tirado do Instagram</td></tr>
+      </table>
+      <div class="faixa f-info">O robô só entra no ar depois que você conversar com ele no teste final e aprovar.</div>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer>Demonstração com dados fictícios · AET Tech</footer>
+
+<dialog id="d-instr" aria-labelledby="d-instr-t">
+  <div class="dlg-cab"><h2 id="d-instr-t">Instrução para o robô</h2><button class="x" data-fecha aria-label="Fechar">×</button></div>
+  <div class="dlg-corpo">
+    <p class="suave" style="margin:0 0 8px"><b>Salvar</b>: vale só para este cliente, até você apagar. <b>Mandar agora</b>: o robô escreve a mensagem com o seu recado, no idioma do cliente, e você confere antes de enviar.</p>
+    <textarea id="instr-txt" rows="3" aria-label="O que o robô deve saber ou dizer"></textarea>
+    <div class="linha" style="margin-top:10px"><button class="btn sec" id="instr-salvar">Salvar</button><button class="btn" id="instr-agora">Mandar agora</button></div>
+    <div id="instr-previa" hidden>
+      <div class="rotulo">Mensagem que vai ao cliente</div>
+      <div class="msg r ver-ambos" id="instr-msg" style="max-width:100%"></div>
+      <div class="linha" style="margin-top:10px"><button class="btn" id="instr-enviar">Enviar</button></div>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="d-calib" aria-labelledby="d-calib-t">
+  <div class="dlg-cab"><h2 id="d-calib-t">Reportar ao calibrador</h2><button class="x" data-fecha aria-label="Fechar">×</button></div>
+  <div class="dlg-corpo">
+    <p class="suave" style="margin:0 0 8px">O caso fica guardado junto com a conversa. Nada é corrigido agora.</p>
+    <textarea id="calib-txt" rows="4" aria-label="O que o calibrador deve saber" placeholder="O que ele devia ter respondido, uma regra nova, “aqui era para me chamar”…"></textarea>
+    <div class="linha" style="margin-top:10px"><button class="btn" id="calib-guardar">Guardar o caso</button></div>
+  </div>
+</dialog>
+
+<dialog id="d-oferta" aria-labelledby="d-oferta-t">
+  <div class="dlg-cab"><h2 id="d-oferta-t">Enviar oferta</h2><button class="x" data-fecha aria-label="Fechar">×</button></div>
+  <div class="dlg-corpo">
+    <div class="rotulo" style="margin-top:0">Cupom</div>
+    <select aria-label="Cupom"><option>BANHO10 · 10% no banho até 30/11</option><option>VOLTA15 · 15% para quem não vem há 60 dias</option></select>
+    <div class="rotulo">Quem recebe</div>
+    <p style="margin:0" id="of-quem"></p>
+    <div class="rotulo">Prévia</div>
+    <div class="msg r" style="max-width:100%">Oi! Seu pet ganhou 10% no próximo banho, válido até 30/11. Quer que eu veja um horário?</div>
+    <div class="faixa f-info" id="of-custo"></div>
+    <div class="linha"><button class="btn sec" id="of-teste">Mandar teste para mim</button><button class="btn" id="of-enviar">Enviar</button></div>
+  </div>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+'use strict';
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ic=n=>`<svg class="i"><use href="#i-${n}"/></svg>`;
+function aviso(t){const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(aviso.t);aviso.t=setTimeout(()=>e.classList.remove('on'),2400)}
+
+// ---------- dados da demonstração ----------
+const C=[
+ {id:1,nome:'Irina',pet:'Bublik',raca:'spitz',tel:'+55 48 9•••• ••42',lng:'RU',hora:'10:42',serv:'Banho e tosa',
+  f:{pede:1,nl:1},motivo:'A cliente pediu sábado às 8h e a loja abre às 9h.',
+  b:{pet:'Bublik, spitz, pequeno',serv:'Banho e tosa · R$ 150 · 2h',pedido:'Sábado 14/11, 8h',alerta:'antes da abertura',livre:['Sábado 14/11 às 9h','Sábado 14/11 às 11h']},
+  m:[{de:'c',h:'10:38',t:'Olá! Quanto custa a tosa para um spitz?',o:'Здравствуйте! Сколько стоит стрижка для шпица?'},
+     {de:'r',h:'10:38',t:'Olá! A tosa de spitz sai por R$ 120; com banho, R$ 150. Quer que eu agende?',o:'Здравствуйте! Стрижка шпица — 120 реалов, вместе с купанием — 150. Записать вас?'},
+     {de:'c',h:'10:41',audio:'0:07',t:'Pode ser sábado de manhã, às 8h?',o:'Можно в субботу утром, в 8 часов?'},
+     {de:'r',h:'10:42',t:'Vou confirmar esse horário com a equipe e já volto.',o:'Уточню это время у сотрудников и сразу вернусь к вам.'}],
+  sug:{pt:'Sábado abrimos às 9h. Posso deixar reservado às 9h para o Bublik?',o:'В субботу мы открываемся в 9:00. Могу записать Бублика на 9:00?'},
+  instr:{pt:'O Bublik tem medo de secador. Avisar que usamos toalha e soprador baixo.',msg:'Irina, não se preocupe: com o Bublik usamos toalha e soprador silencioso em velocidade baixa.',o:'Ирина, не переживайте: для Бублика мы используем полотенце и тихий фен на низкой скорости.'},
+  caso:'Não precisa me chamar pra isso. Sábado a gente abre às 9h, é só oferecer o primeiro horário livre.',
+  regra:'Pedido de horário antes da abertura: dizer a que horas a loja abre naquele dia e oferecer o primeiro horário livre, sem chamar você.'},
+ {id:2,nome:'Marcos',pet:'Thor',raca:'golden',tel:'+55 48 9•••• ••17',lng:'PT',hora:'10:15',serv:'Banho',
+  f:{agendou:1},
+  b:{pet:'Thor, golden, grande',serv:'Banho · R$ 110 · 1h30',pedido:'Sexta 13/11, 14h',marcado:'Sexta 13/11 às 14h'},
+  m:[{de:'c',h:'10:12',t:'Oi, tem horário pra banho no Thor essa semana?'},
+     {de:'r',h:'10:12',t:'Oi, senhor Marcos! Para golden, o banho é R$ 110 e leva 1h30. Tenho sexta às 14h ou sábado às 11h. Qual prefere?'},
+     {de:'c',h:'10:15',t:'Fechado, sexta às 14h então'},
+     {de:'r',h:'10:15',t:'Marcado: Thor, banho, sexta 13/11 às 14h. Mando um lembrete na véspera.'}],
+  sug:{pt:''},instr:{pt:'',msg:''},
+  caso:'Não chamar ninguém de senhor. Aqui a gente trata todo mundo por você.',regra:'Tratar o cliente sempre por "você".'},
+ {id:3,nome:'Paula',pet:'Mel',raca:'gata',tel:'+55 48 9•••• ••80',lng:'PT',hora:'09:58',serv:'',
+  f:{pede:1,nl:1,urg:1},motivo:'Urgência de saúde: o robô não indica remédio e chama uma pessoa.',
+  m:[{de:'c',h:'09:57',t:'Oi, a Mel não come desde ontem e está quietinha. O que eu posso dar pra ela?'},
+     {de:'r',h:'09:58',t:'Paula, um dia sem comer em gato precisa de veterinário hoje. Não posso indicar remédio por aqui. Já chamei a equipe e alguém fala com você agora.'}],
+  sug:{pt:'Paula, aqui é da loja. Leve a Mel hoje a um veterinário; se quiser, te passo o contato da clínica parceira.'},instr:{pt:'',msg:''},
+  caso:'',regra:''},
+ {id:4,nome:'Dmitri',pet:'Rex',raca:'pastor',tel:'+55 48 9•••• ••63',lng:'RU',hora:'ontem',serv:'Banho',
+  f:{agendou:1,fav:1},
+  b:{pet:'Rex, pastor, grande',serv:'Banho · R$ 110 · 1h30',pedido:'Segunda 16/11, 10h',marcado:'Segunda 16/11 às 10h'},
+  m:[{de:'c',h:'17:20',t:'Dá para agendar o Rex para segunda?',o:'Можно записать Рекса на понедельник?'},
+     {de:'r',h:'17:20',t:'Sim! Segunda às 10h está livre. Banho de pastor: R$ 110. Confirmo?',o:'Да! В понедельник в 10:00 свободно. Купание овчарки — 110 реалов. Подтвердить?'},
+     {de:'c',h:'17:24',t:'Sim, obrigado',o:'Да, спасибо'},
+     {de:'r',h:'17:24',t:'Marcado: Rex, banho, segunda 16/11 às 10h.',o:'Записал: Рекс, купание, понедельник 16.11 в 10:00.'}],
+  sug:{pt:''},instr:{pt:'',msg:''},caso:'',regra:''}
+];
+const E={aba:'todas',busca:'',serv:'',lng:'',atual:1,ver:'trad',sel:false,marc:new Set(),
+  fila:[{quem:'Marcos · Thor',txt:C[1].caso,regra:C[1].regra}],passo:'fila',
+  mud:[{q:'Hoje 09:12',t:'Tosa de spitz passou a R$ 120'},{q:'Ontem',t:'Não oferecer hotel no Carnaval (lotado)'}]};
+const conv=()=>C.find(c=>c.id===E.atual);
+const agora=()=>new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+
+// ---------- navegação ----------
+function abrir(id){
+  $$('nav button').forEach(b=>b.setAttribute('aria-selected',b.dataset.tela===id));
+  $$('main > section').forEach(s=>s.hidden=s.id!==id);
+  scrollTo(0,0);
+}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-tela]');if(b)abrir(b.dataset.tela);
+  if(e.target.closest('[data-fecha]'))e.target.closest('dialog').close();
+  if(e.target.closest('.demo'))aviso('Na versão real, isso abre o cadastro.')});
+
+// ---------- lista ----------
+function filtradas(){
+  const q=E.busca.toLowerCase();
+  return C.filter(c=>(E.aba==='todas'||c.f[E.aba])&&(!q||(c.nome+c.pet+c.tel).toLowerCase().includes(q))&&(!E.serv||c.serv===E.serv)&&(!E.lng||c.lng===E.lng));
+}
+function selos(c){
+  return (c.lng!=='PT'?`<span class="selo s-idioma">${c.lng}</span> `:'')+(c.f.urg?'<span class="selo s-urg">Urgência</span> ':'')+
+    (c.f.pede?'<span class="selo s-humano">Pede você</span> ':'')+(c.f.voce?'<span class="selo s-idioma">Com você</span> ':'')+(c.f.agendou?'<span class="selo s-ok">Agendou</span>':'');
+}
+function lista(){
+  const its=filtradas();
+  $('#lista').innerHTML=its.map(c=>{const u=c.m[c.m.length-1];
+    return `<li data-id="${c.id}" tabindex="0" class="${c.id===E.atual?'sel ':''}${c.f.nl?'nl':''}">
+      ${E.sel?`<input type="checkbox" ${E.marc.has(c.id)?'checked':''} aria-label="Selecionar ${c.nome}">`:`<span class="av">${c.nome[0]}${c.pet[0]}</span>`}
+      <div class="corpo"><div class="linha entre" style="flex-wrap:nowrap"><strong>${c.nome} · ${c.pet}</strong><small class="suave">${c.hora}</small></div>
+      <div class="prev">${u.de==='c'?'':'↩ '}${esc(u.t)}</div>${selos(c)}</div></li>`}).join('');
+  $('#lista-vazia').hidden=its.length>0;
+  const np=C.filter(c=>c.f.pede).length, nn=C.filter(c=>c.f.nl).length;
+  $('#n-pede').textContent=np||'';$('#n-nl').textContent=nn||'';$('#nav-pede').textContent=np||'';
+  $('#lote').hidden=!E.sel;$('#qtd').textContent=E.marc.size?E.marc.size+(E.marc.size===1?' selecionada':' selecionadas'):'Nenhuma selecionada';
+  $('#bt-sel').setAttribute('aria-pressed',E.sel);
+}
+function escolher(li,e){
+  const id=+li.dataset.id;
+  if(E.sel){E.marc.has(id)?E.marc.delete(id):E.marc.add(id);lista();return}
+  E.atual=id;conv().f.nl=0;$('#cv').classList.add('aberta');lista();conversa();if(innerWidth<=880)scrollTo(0,0);
+}
+$('#lista').addEventListener('click',e=>{const li=e.target.closest('li');if(li)escolher(li,e)});
+$('#lista').addEventListener('keydown',e=>{if(e.key==='Enter'){const li=e.target.closest('li');if(li)escolher(li,e)}});
+$('#abas').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;E.aba=b.dataset.aba;$$('#abas .chip').forEach(x=>x.classList.toggle('on',x===b));lista()});
+$('#busca').addEventListener('input',e=>{E.busca=e.target.value;lista()});
+$('#f-serv').addEventListener('change',e=>{E.serv=e.target.value;lista()});
+$('#f-lng').addEventListener('change',e=>{E.lng=e.target.value;lista()});
+$('#bt-sel').addEventListener('click',()=>{E.sel=!E.sel;E.marc.clear();lista()});
+$('#lote').addEventListener('click',e=>{const b=e.target.closest('[data-lote]');if(!b)return;
+  if(!E.marc.size)return aviso('Marque ao menos uma conversa.');
+  if(b.textContent==='Lidas')C.forEach(c=>{if(E.marc.has(c.id))c.f.nl=0});
+  aviso(b.dataset.lote+': '+E.marc.size);E.sel=false;E.marc.clear();lista()});
+
+// ---------- conversa ----------
+function bolha(m,c){
+  const quem=m.de==='c'?c.nome+(m.audio?` · áudio ${m.audio}, transcrito`:''):m.de==='r'?'Robô':'Você';
+  if(m.de==='s')return `<div class="msg s">${esc(m.t)}</div>`;
+  return `<div class="msg ${m.de}"><div class="quem"><span>${quem}</span><span>${m.h}${m.de==='c'?'':' · entregue'}</span></div>`+
+    (m.o?`<div class="trad">${esc(m.t)}</div><div class="orig">${esc(m.o)}</div>`:esc(m.t))+'</div>';
+}
+function conversa(){
+  const c=conv(), el=$('#conv'), estr=c.lng!=='PT';
+  const bil=c.b?`<div class="bilhete"><div class="linha entre"><strong>Dados do agendamento</strong>${c.b.marcado?'<span class="selo s-ok">Marcado na agenda</span>':''}</div>
+    <dl><dt>Pet</dt><dd>${c.b.pet}</dd><dt>Serviço</dt><dd>${c.b.serv}</dd>
+    ${c.b.marcado?`<dt>Horário</dt><dd>${c.b.marcado}</dd>`:`<dt>Pedido</dt><dd>${c.b.pedido} <span class="selo s-humano">${c.b.alerta}</span></dd><dt>Livre</dt><dd>${c.b.livre.join(' · ')}</dd>`}</dl>
+    <div class="linha" style="margin-top:10px">${c.b.marcado?'':`<button class="btn" id="b-marcar">Marcar ${c.b.livre[0].split(' às ')[1]?'às '+c.b.livre[0].split(' às ')[1]:''}</button>`}<button class="btn sec" id="b-copiar">Copiar</button><button class="btn sec demo">Ver outros horários</button></div></div>`:'';
+  const lngNome={RU:'russo',PT:'português'}[c.lng];
+  const compor=c.f.voce?`<div class="linha entre"><span class="suave">Dá para responder livremente por mais 23 h.</span>
+      <label class="suave">Chega ao cliente em <select class="curto" id="lng"><option ${estr?'selected':''}>russo</option><option>espanhol</option><option>inglês</option><option ${estr?'':'selected'}>português (sem tradução)</option></select></label></div>
+    <textarea id="txt" rows="2" aria-label="Sua resposta, em português" placeholder="Escreva em português…" style="margin-top:8px">${esc(c.sug.pt||'')}</textarea>
+    ${estr?'<div class="faixa f-info" id="trad"></div>':''}
+    <div class="linha entre" style="margin-top:8px"><button class="btn sec demo">${ic('clipe')}Anexar</button><button class="btn" id="b-enviar">${ic('envia')}Enviar</button></div>`
+   :`<div class="linha entre"><span>O robô está cuidando desta conversa. Assuma para responder você.</span><button class="btn" data-assumir>Assumir</button></div>`;
+  el.innerHTML=`<div class="linha entre">
+      <div class="linha" style="flex-wrap:nowrap"><button class="ic voltar" id="voltar" aria-label="Voltar para a lista">${ic('volta')}</button><span class="av">${c.nome[0]}${c.pet[0]}</span>
+        <div><strong>${c.nome} · ${c.pet}</strong> ${estr?`<span class="selo s-idioma">${c.lng}</span>`:''}<br><span class="suave">${c.tel} · ${c.raca}</span></div></div>
+      <div class="linha">
+        <button class="ic" id="b-instr" title="Instrução para o robô, só para este cliente" aria-label="Instrução para o robô">${ic('lapis')}</button>
+        <button class="ic" id="b-fav" aria-pressed="${!!c.f.fav}" title="Favoritar" aria-label="Favoritar">${ic('estrela')}</button>
+        <button class="ic" id="b-sino" aria-pressed="${!c.semLembrete}" title="Lembretes automáticos" aria-label="Lembretes automáticos">${ic('sino')}</button>
+        <button class="ic" id="b-calib" title="Reportar ao calibrador" aria-label="Reportar ao calibrador">${ic('alvo')}</button>
+        <button class="ic" id="b-bloq" title="Bloquear este número" aria-label="Bloquear este número">${ic('bloq')}</button>
+        <button class="ic" id="b-print" title="Print da conversa inteira" aria-label="Print da conversa">${ic('foto')}</button>
+        <button class="btn ${c.f.voce?'sec':''}" data-assumir>${c.f.voce?'Devolver ao robô':'Assumir'}</button>
+      </div></div>
+    ${c.f.pede&&c.motivo?`<div class="faixa f-at"><b>O robô chamou você.</b> ${c.motivo}</div>`:''}
+    ${bil}
+    ${estr?`<div class="linha entre"><span class="suave">Mensagens</span><div class="chips" id="ver">${[['trad','Traduzido'],['orig','Original'],['ambos','Os dois']].map(([k,r])=>`<button class="chip ${E.ver===k?'on':''}" data-ver="${k}">${r}</button>`).join('')}</div></div>`:''}
+    <div class="fio ver-${estr?E.ver:'ambos'}" id="fio">${c.m.map(m=>bolha(m,c)).join('')}</div>
+    <div class="compor">${compor}</div>`;
+  if(c.f.voce&&estr)traduz();
+}
+function traduz(){
+  const c=conv(),t=$('#txt').value.trim(),e=$('#trad');if(!e)return;
+  e.innerHTML=!t?'A tradução aparece aqui enquanto você escreve.':t===c.sug.pt?`<b>Em russo:</b> ${esc(c.sug.o)}`:'<b>Em russo:</b> <i>na versão real, a tradução do que você escreveu aparece aqui antes de enviar.</i>';
+}
+$('#conv').addEventListener('input',e=>{if(e.target.id==='txt')traduz()});
+$('#conv').addEventListener('click',e=>{
+  const c=conv(),b=e.target.closest('button');if(!b)return;
+  if(b.dataset.ver){E.ver=b.dataset.ver;conversa()}
+  else if(b.hasAttribute('data-assumir')){c.f.voce=c.f.voce?0:1;if(c.f.voce)c.f.pede=0;aviso(c.f.voce?'Conversa com você. O robô ficou em silêncio.':'Devolvida ao robô.');lista();conversa()}
+  else if(b.id==='voltar'){$('#cv').classList.remove('aberta')}
+  else if(b.id==='b-fav'){c.f.fav=c.f.fav?0:1;lista();conversa()}
+  else if(b.id==='b-sino'){c.semLembrete=!c.semLembrete;aviso(c.semLembrete?'Lembretes automáticos parados para este cliente.':'Lembretes automáticos ligados.');conversa()}
+  else if(b.id==='b-bloq')aviso('Na versão real, este número deixa de conseguir escrever.');
+  else if(b.id==='b-print')aviso('Na versão real, salva a conversa inteira como imagem.');
+  else if(b.id==='b-copiar')aviso('Dados copiados.');
+  else if(b.id==='b-marcar'){c.b.marcado=c.b.livre[0];c.f.agendou=1;c.f.pede=0;c.m.push({de:'s',t:'Marcado na agenda da loja: '+c.b.marcado});aviso('Marcado na agenda.');lista();conversa()}
+  else if(b.id==='b-enviar'){const t=$('#txt').value.trim();if(!t)return aviso('Escreva a resposta primeiro.');
+    c.m.push({de:'d',h:agora(),t,o:c.lng!=='PT'?(t===c.sug.pt?c.sug.o:'(tradução automática)'):undefined});c.sug={pt:''};aviso('Enviada pelo WhatsApp.');lista();conversa()}
+  else if(b.id==='b-instr'){$('#instr-txt').value=c.instrSalva||c.instr.pt;$('#instr-previa').hidden=true;$('#d-instr').showModal()}
+  else if(b.id==='b-calib'){$('#calib-txt').value=c.caso||'';$('#d-calib').showModal()}
+});
+
+// ---------- instrução ----------
+$('#instr-salvar').addEventListener('click',()=>{conv().instrSalva=$('#instr-txt').value;$('#d-instr').close();aviso('Instrução salva para este cliente.')});
+$('#instr-agora').addEventListener('click',()=>{const c=conv(),t=$('#instr-txt').value.trim();if(!t)return aviso('Escreva o recado primeiro.');
+  const igual=t===c.instr.pt&&c.instr.msg;
+  $('#instr-msg').innerHTML=igual?(c.instr.o?`<div class="trad">${esc(c.instr.msg)}</div><div class="orig">${esc(c.instr.o)}</div>`:esc(c.instr.msg)):'<i>Na versão real, o robô escreve aqui a mensagem a partir do seu recado.</i>';
+  $('#instr-previa').hidden=false;$('#instr-enviar').disabled=!igual});
+$('#instr-enviar').addEventListener('click',()=>{const c=conv();c.m.push({de:'r',h:agora(),t:c.instr.msg,o:c.instr.o});$('#d-instr').close();aviso('Enviada pelo WhatsApp.');lista();conversa()});
+
+// ---------- oferta ----------
+$('#bt-oferta').addEventListener('click',()=>{const n=E.marc.size;if(!n)return aviso('Marque ao menos uma conversa.');
+  $('#of-quem').textContent=`${n} ${n===1?'conversa selecionada':'conversas selecionadas'} · nenhuma pediu para não receber`;
+  $('#of-custo').innerHTML=`Custo no WhatsApp: ${n} × R$ 0,32 = <b>R$ ${(n*0.32).toFixed(2).replace('.',',')}</b>`;$('#of-enviar').textContent='Enviar para '+n;$('#d-oferta').showModal()});
+$('#of-teste').addEventListener('click',()=>aviso('Teste enviado para o seu WhatsApp.'));
+$('#of-enviar').addEventListener('click',()=>{$('#d-oferta').close();aviso('Oferta enviada para '+E.marc.size+'.');E.sel=false;E.marc.clear();lista()});
+
+// ---------- calibrador ----------
+$('#calib-guardar').addEventListener('click',()=>{const c=conv(),t=$('#calib-txt').value.trim();if(!t)return aviso('Escreva o que o calibrador deve saber.');
+  E.fila=E.fila.filter(x=>x.quem!==`${c.nome} · ${c.pet}`);
+  E.fila.push({quem:`${c.nome} · ${c.pet}`,txt:t,regra:t===c.caso&&c.regra?c.regra:'Regra nova a partir do seu recado: “'+t+'”'});
+  if(E.passo==='noar')E.passo='fila';$('#d-calib').close();aviso('Caso guardado. Veja no Calibrador.');calibrador()});
+function calibrador(){
+  const ordem=['fila','analisando','proposta','retestado','noar'], i=ordem.indexOf(E.passo);
+  $('#cal-passos').innerHTML=[['Reportar',0],['Pode corrigir',1],['Proposta e testes',2],['No ar',4]].map(([r,p],k,a)=>{
+    const prox=a[k+1]?a[k+1][1]:99;return `<li class="${i>=prox||(p===4&&i===4)?'feito':i>=p?'agora':''}">${k+1} · ${r}</li>`}).join('');
+  $('#cal-fila').innerHTML=E.fila.map((x,k)=>`<tr><td><b>${esc(x.quem)}</b><br><span class="suave">${esc(x.txt)}</span></td><td style="text-align:right"><button class="lnk" data-tira="${k}">Tirar</button></td></tr>`).join('');
+  $('#cal-vazia').hidden=E.fila.length>0;$('#cal-corrigir').disabled=!E.fila.length||E.passo!=='fila';
+  $('#nav-fila').textContent=E.fila.length||'';
+  $('#cal-mud').innerHTML=E.mud.map((m,k)=>`<tr><td class="suave" style="white-space:nowrap">${m.q}</td><td>${esc(m.t)}</td><td style="text-align:right"><button class="lnk" data-desfaz="${k}">Desfazer</button></td></tr>`).join('');
+  const d=$('#cal-direita'), regras=E.fila.map((x,k)=>`${k+1}. ${esc(x.regra)}`).join('<br>');
+  const exemplo=E.fila.some(x=>x.quem.startsWith('Irina'))?'<div class="rotulo">Como ele responderia agora</div><div class="msg r" style="max-width:100%">No sábado abrimos às 9h. Tenho 9h livre para o Bublik, pode ser?</div>':'';
+  if(E.passo==='fila')d.innerHTML='<h2>Proposta do calibrador</h2><p class="vazio">Quando você tocar em <b>Pode corrigir</b>, a proposta e o resultado dos testes aparecem aqui.</p>';
+  else if(E.passo==='analisando')d.innerHTML='<h2>Proposta do calibrador</h2><div class="vazio"><div class="gira"></div>Lendo os casos e rodando 64 conversas de teste…</div>';
+  else if(E.passo==='proposta')d.innerHTML=`<h2>Proposta do calibrador</h2><div class="rotulo" style="margin-top:0">O que vai mudar</div><div class="faixa f-info" style="margin-top:0">${regras}</div>${exemplo}
+    <div class="rotulo">Testes antes de publicar</div><div class="faixa f-ok">63 de 64 conversas de teste continuam certas.</div>
+    <div class="faixa f-at"><b>1 mudou:</b> “Posso levar às 7h30 no domingo?” Domingo a loja não abre, e o robô ofereceria 9h de domingo.</div>
+    <p style="margin:0">Sugestão: em dia fechado, oferecer o próximo dia aberto.</p>
+    <div class="linha" style="margin-top:12px"><button class="btn" id="cal-aceitar">Aceitar sugestão e testar de novo</button><button class="btn sec" id="cal-explicar">Vou explicar melhor</button></div>`;
+  else if(E.passo==='retestado')d.innerHTML=`<h2>Proposta do calibrador</h2><div class="rotulo" style="margin-top:0">O que vai mudar</div><div class="faixa f-info" style="margin-top:0">${regras}<br>${E.fila.length+1}. Em dia fechado, oferecer o próximo dia aberto.</div>
+    <div class="rotulo">Testes antes de publicar</div><div class="faixa f-ok"><b>64 de 64</b> conversas de teste certas.</div>
+    <div class="linha"><button class="btn" id="cal-publicar">Publicar</button><button class="btn sec" id="cal-cancelar">Cancelar</button></div>`;
+  else d.innerHTML='<h2>No ar</h2><div class="faixa f-ok">O robô já responde do jeito novo. Os casos viraram testes: se uma mudança futura quebrar isso, você fica sabendo antes de publicar.</div><p class="suave">Não gostou? Cada mudança tem um Desfazer na lista ao lado.</p>';
+}
+$('#cal-corrigir').addEventListener('click',()=>{E.passo='analisando';calibrador();setTimeout(()=>{E.passo='proposta';calibrador()},1400)});
+$('#calibrar').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+  if(b.dataset.tira!==undefined){E.fila.splice(+b.dataset.tira,1);if(!E.fila.length)E.passo='fila';calibrador()}
+  else if(b.dataset.desfaz!==undefined){const m=E.mud.splice(+b.dataset.desfaz,1)[0];aviso('Desfeito: '+m.t);calibrador()}
+  else if(b.id==='cal-aceitar'){E.passo='analisando';calibrador();setTimeout(()=>{E.passo='retestado';calibrador()},1100)}
+  else if(b.id==='cal-explicar'||b.id==='cal-cancelar'){E.passo='fila';aviso('Nada foi publicado. Os casos continuam na fila.');calibrador()}
+  else if(b.id==='cal-publicar'){E.fila.forEach(x=>E.mud.unshift({q:'Agora',t:x.regra}));E.fila=[];E.passo='noar';aviso('Publicado.');calibrador()}});
+
+// ---------- testar ----------
+const T=[['Quanto é o banho?','Depende do porte: pequeno R$ 60, grande R$ 110. Qual é o seu pet?'],
+ ['Vocês abrem domingo?','Domingo estamos fechados. Abrimos de segunda a sexta das 8h às 18h e sábado das 9h às 13h.'],
+ ['Meu cachorro está vomitando','Vômito precisa de veterinário, não posso indicar remédio por aqui. Já avisei a equipe e alguém te chama em seguida.','Regra que vale para todo petshop: o robô nunca indica remédio nem diagnóstico.'],
+ ['Сколько стоит стрижка?','A tosa depende da raça: spitz R$ 120, com banho R$ 150. Qual é a raça?',null,'Стрижка зависит от породы: шпиц — 120 реалов, с купанием — 150. Какая у вас порода?'],
+ ['Quero cancelar','Sem problema. Me diz o nome do pet e eu cancelo o horário.']];
+$('#t-prontas').innerHTML=T.map((t,k)=>`<button class="chip" data-t="${k}">${t[0]}</button>`).join('');
+function perguntar(q,r){
+  const f=$('#t-fio');f.insertAdjacentHTML('beforeend',`<div class="msg"><div class="quem"><span>Você, como cliente</span></div>${esc(q)}</div>`);
+  setTimeout(()=>{f.insertAdjacentHTML('beforeend',`<div class="msg r"><div class="quem"><span>Robô</span></div>${r[3]?`<div class="orig" style="border:0;margin:0;padding:0;font-size:15px;color:inherit">${esc(r[3])}</div><div class="orig">Em português: ${esc(r[1])}</div>`:esc(r[1])}${r[2]?`<div class="suave" style="margin-top:6px">${r[2]}</div>`:''}</div>`);f.lastElementChild.scrollIntoView({block:'nearest'})},500);
+}
+$('#t-prontas').addEventListener('click',e=>{const b=e.target.closest('.chip');if(b)perguntar(T[b.dataset.t][0],T[b.dataset.t])});
+$('#t-form').addEventListener('submit',e=>{e.preventDefault();const q=$('#t-txt').value.trim();if(!q)return;$('#t-txt').value='';
+  perguntar(q,T.find(t=>t[0].toLowerCase()===q.toLowerCase())||[q,'Nesta demonstração o robô só responde às perguntas prontas. Na versão real, ele responde com a ficha do seu petshop.'])});
+$('#t-rodar').addEventListener('click',()=>{$('#t-res').textContent='Rodando…';setTimeout(()=>$('#t-res').textContent='64 de 64 certas.',1200)});
+perguntar(T[0][0],T[0]);
+
+// ---------- ficha: chips ----------
+$$('#ficha .chips').forEach(g=>g.addEventListener('click',e=>{const c=e.target.closest('.chip');if(!c)return;
+  if(g.classList.contains('varios'))c.classList.toggle('on');else g.querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x===c))}));
+
+conv().f.nl=0;  // a conversa que já abre na tela conta como lida
+lista();conversa();calibrador();
+</script>
+</body>
+</html>

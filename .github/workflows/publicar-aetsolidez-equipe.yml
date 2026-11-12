@@ -1,11 +1,11 @@
-name: Publicar aetsolidez.com.br/equipe
+name: Publicar aetsolidez.com.br/equipe e /petshop
 
 # A conta FTP deste repositório enxerga a hospedagem inteira; o site principal fica em public_html/.
-# Publica só a pasta equipe/ (cópia de techaet/site-aetsolidez, que é a fonte), sem apagar nada no servidor.
+# Publica só as pastas equipe/ e petshop/ (demonstração do painel de petshops) (cópia de techaet/site-aetsolidez, que é a fonte), sem apagar nada no servidor.
 on:
   push:
     branches: [ main ]
-    paths: [ "_aetsolidez/equipe/**" ]
+    paths: [ "_aetsolidez/**" ]
   workflow_dispatch:
 
 jobs:
@@ -14,10 +14,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: sudo apt-get install -y -qq lftp >/dev/null
-      - name: Enviar equipe/
+      - name: Enviar equipe/ e petshop/
         env:
           S: ${{ secrets.FTP_SERVER }}
           U: ${{ secrets.FTP_USERNAME }}
           P: ${{ secrets.FTP_PASSWORD }}
         run: |
-          lftp -u "$U,$P" -e "set ftp:ssl-force true; set ssl:verify-certificate no; mkdir -p public_html/equipe; mirror -R --verbose _aetsolidez/equipe public_html/equipe; cls -1 public_html/equipe/; bye" "$S"
+          lftp -u "$U,$P" -e "set ftp:ssl-force true; set ssl:verify-certificate no; mkdir -p public_html/equipe; mirror -R --verbose _aetsolidez/equipe public_html/equipe; cls -1 public_html/equipe/; mkdir -p public_html/petshop; mirror -R --verbose _aetsolidez/petshop public_html/petshop; cls -1 public_html/petshop/; bye" "$S"
