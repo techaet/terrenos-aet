@@ -13,11 +13,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: sudo apt-get install -y -qq lftp >/dev/null
-      - name: Enviar equipe/ e petshop/
+      - name: Enviar equipe/ e petshop/ por rsync para a VPS
         env:
-          S: ${{ secrets.FTP_SERVER }}
-          U: ${{ secrets.FTP_USERNAME }}
-          P: ${{ secrets.FTP_PASSWORD }}
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
         run: |
-          lftp -u "$U,$P" -e "set ftp:ssl-force true; set ssl:verify-certificate no; mkdir -p public_html/equipe; mirror -R --verbose _aetsolidez/equipe public_html/equipe; cls -1 public_html/equipe/; mkdir -p public_html/petshop; mirror -R --verbose _aetsolidez/petshop public_html/petshop; cls -1 public_html/petshop/; bye" "$S"
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy && chmod 600 ~/.ssh/deploy
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          # sem --delete: o servidor só aceita escrita (rrsync -wo -no-del), como o FTP fazia na prática
+          for d in equipe petshop; do rsync -rlptz --chmod=D755,F644 -e "ssh -i ~/.ssh/deploy -o BatchMode=yes" _aetsolidez/$d/ deploy@189.24.7.25:$d/; done
