@@ -1,6 +1,6 @@
 name: Publicar aetsolidez.com.br/equipe e /petshop
 
-# A conta FTP deste repositório enxerga a hospedagem inteira; o site principal fica em public_html/.
+# A chave de deploy deste repositório também grava na pasta do aetsolidez.com.br na VPS (rrsync, só escrita).
 # Publica só as pastas equipe/ e petshop/ (demonstração do painel de petshops) (cópia de techaet/site-aetsolidez, que é a fonte), sem apagar nada no servidor.
 on:
   push:
