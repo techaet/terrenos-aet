@@ -1,7 +1,7 @@
-name: Publicar aetsolidez.com.br/equipe e /petshop
+name: Publicar aetsolidez.com.br/equipe, /petshop e /privacidade
 
 # A chave de deploy deste repositório também grava na pasta do aetsolidez.com.br na VPS (rrsync, só escrita).
-# Publica só as pastas equipe/ e petshop/ (demonstração do painel de petshops) (cópia de techaet/site-aetsolidez, que é a fonte), sem apagar nada no servidor.
+# Publica só as pastas equipe/, petshop/ (demonstração do painel de petshops) e privacidade/ (política do AET Atendimento) (cópia de techaet/site-aetsolidez, que é a fonte), sem apagar nada no servidor.
 on:
   push:
     branches: [ main ]
@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Enviar equipe/ e petshop/ por rsync para a VPS
+      - name: Enviar equipe/, petshop/ e privacidade/ por rsync para a VPS
         env:
           DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
           DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
@@ -22,4 +22,4 @@ jobs:
           printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy && chmod 600 ~/.ssh/deploy
           printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > ~/.ssh/known_hosts
           # sem --delete: o servidor só aceita escrita (rrsync -wo -no-del), como o FTP fazia na prática
-          for d in equipe petshop; do rsync -rlptz --chmod=D755,F644 -e "ssh -i ~/.ssh/deploy -o BatchMode=yes" _aetsolidez/$d/ deploy@189.24.7.25:$d/; done
+          for d in equipe petshop privacidade; do rsync -rlptz --chmod=D755,F644 -e "ssh -i ~/.ssh/deploy -o BatchMode=yes" _aetsolidez/$d/ deploy@189.24.7.25:$d/; done
